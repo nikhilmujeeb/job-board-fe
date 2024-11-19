@@ -1,0 +1,185 @@
+/* Global Reset and Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+/* Theme-specific styles for Light and Dark modes */
+.app {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light Theme */
+.app.light {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Dark Theme */
+.app.dark {
+  background-color: #121212;
+  color: #fff;
+}
+
+/* Footer */
+.footer {
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  position: none;
+  bottom: 0;
+  width: 100%;
+}
+
+footer {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  padding: 20px 40px;
+  border-top: 1px solid #ddd;
+}
+
+/* Content Sections */
+.home-page {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.banner {
+  background: #f4f4f4;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+/* Dark mode updates */
+.app.dark .banner {
+  background: #333;
+}
+
+.banner h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+/* Button Styles */
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* CTA Sections */
+.cta-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.cta-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Footer and other sections */
+.footer-sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.footer-column ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Dark theme footer and links */
+.app.dark footer {
+  background-color: #121212;
+  color: #fff;
+}
+
+.app.dark .footer-column ul li a {
+  color: #bbb;
+}
+
+.app.dark .footer-column ul li a:hover {
+  color: #fff;
+}
+
+/* Forms */
+.subscribe-form input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.subscribe-form button {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.subscribe-form button:hover {
+  background-color: #444;
+}
+
+.terms {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.terms a {
+  text-decoration: underline;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-bottom .logo {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Dark Mode for Footer Bottom */
+.app.dark .footer-bottom p {
+  color: #ccc;
+}

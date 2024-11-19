@@ -1,0 +1,161 @@
+/* General styling for the page */
+.home-page {
+    width: 100%;
+    padding: 4rem 2rem;
+    background-color: #f8f8f8; /* Off-white background */
+    font-family: 'Arial', sans-serif;
+    color: #2a2a2a; /* Very dark grey text */
+  }
+  
+  /* Features Section */
+  .features {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .feature {
+    margin-bottom: 2rem;
+  }
+  
+  .feature h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .feature p {
+    font-size: 1.1rem;
+  }
+  
+  /* How It Works Section */
+  .how-it-works {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .how-it-works h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .step {
+    margin-bottom: 2rem;
+  }
+  
+  .step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .step p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  /* Benefits Sections */
+  .benefits-seekers, .benefits-employers {
+    background-color: #f8f8f8;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .benefits-seekers h2, .benefits-employers h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .benefits-seekers ul, .benefits-employers ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .benefits-seekers li, .benefits-employers li {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Job Listings Section */
+  .job-listings {
+    margin-bottom: 3rem;
+  }
+  
+  .job-listing {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .job-listing h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .job-listing p {
+    font-size: 1.1rem;
+  }
+  
+  .job-listing .cta-button {
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  
+  /* Testimonials Section */
+  .testimonials {
+    background-color: #f8f8f8;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .testimonials h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .testimonial {
+    margin-bottom: 2rem;
+  }
+  
+  .testimonial p {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .testimonial h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .cta-button {
+    background-color: #009688;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 0;
+  }
+  
+  .job-listings ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .job-listings li {
+    margin-bottom: 20px;
+  }
+  
+  .view-more {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .view-more .cta-button {
+    margin-top: 20px;
+  }
+  

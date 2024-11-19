@@ -1,0 +1,158 @@
+/* General Navbar Styles */
+body {
+  background-color: #f4f4f4; /* Off-white background */
+  color: #333; /* Dark grey text */
+  position: sticky;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ddd;
+  background-color: #f4f4f4; /* Off-white background */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+/* Left Section (Logo + Links) */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-image {
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333; /* Dark grey text */
+}
+
+.logo-link {
+  text-decoration: none; /* Remove underlining */
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-links a {
+  color: #333; /* Dark grey text */
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.more-options {
+  cursor: pointer;
+  font-weight: bold;
+  color: #333; /* Dark grey text */
+}
+
+/* Right Section (Auth + Theme Button) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Theme Button */
+.theme-button {
+  background-color: #000000; /* Dark grey background */
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Auth Buttons */
+.auth-button {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  color: #fff; /* White text color */
+  background-color: #444; /* Blue background */
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.auth-button:hover {
+  background-color: #000000; /* Darker blue on hover */
+  border-color: #000000;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-expanded {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #fafafa; /* Off-white background */
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+}
+
+.dropdown-column h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333; /* Dark grey text */
+}
+
+.dropdown-column a {
+  display: block;
+  color: #333; /* Dark grey text */
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.dropdown-column a:hover {
+  text-decoration: underline;
+}
+
+/* Login/Signup Section */
+.login-signup {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end; /* Aligns to the right */
+  margin-top: 1rem;
+  margin-right: 50px;
+  grid-column: span 4; /* Ensure this spans across the dropdown's grid columns */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .dropdown-expanded {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .login-signup {
+    justify-content: flex-end; /* Align to right in mobile view as well */
+    margin-top: 0.5rem;
+  }
+}
