@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import '../styles/Navbar.css';
+import logo from "./logo.png";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -25,7 +26,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="navbar-left">
           <Link to="/" className="logo-link">
-            <img src="./logo.png" alt="Logo" className="logo-image" />
+          <img src={logo} alt="Logo" className="logo-image" />
             <span className="logo-text">JOB SEEKER</span>
           </Link>
 
@@ -59,14 +60,14 @@ const Navbar = () => {
           <div className="dropdown-column">
             <h3>User Resources</h3>
             <Link to="/help-center">Help Center</Link>
-            <Link to="/contact-us">Contact Us</Link>
+            <Link to="/contact">Contact Us</Link>
             <Link to="/success-stories">Success Stories</Link>
           </div>
           <div className="dropdown-column">
             <h3>Company Information</h3>
             <Link to="/about-us">About Us</Link>
             <Link to="/careers">Careers</Link>
-            <Link to="/terms-of-service">Terms of Service & Privacy Policy</Link>
+            <Link to="/terms-and-privacy">Terms of Service & Privacy Policy</Link>
           </div>
           <div className="dropdown-column">
             <h3>Stay Connected</h3>

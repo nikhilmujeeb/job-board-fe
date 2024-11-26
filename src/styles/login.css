@@ -1,69 +1,132 @@
 .auth-page {
-    width: 100%;
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-page h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.input-container {
+  margin-bottom: 1rem;
+}
+
+.input-container input {
+  width: 93%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.input-container input:focus {
+  outline: none;
+  border-color: #444;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 4px; /* Adds rounded corners on focus */
+}
+
+button {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  background-color: #444; /* Gray background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:disabled {
+  background-color: #d3d3d3; /* Lighter gray when disabled */
+}
+
+button:hover:not(:disabled) {
+  background-color: #606060; /* Darker gray on hover */
+}
+
+.switch-form-btn {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #d3d3d3; /* Light gray background */
+  color: #444; /* Darker gray text */
+  border: 1px solid #808080;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.switch-form-btn:hover {
+  background-color: #b0b0b0; /* Slightly darker gray on hover */
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+
+@media (max-width: 480px) {
+  .auth-page {
+    width: 90%;
+    padding: 2rem; /* Increased padding for better mobile display */
   }
-  
-  .auth-page h1 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  .input-container {
-    margin-bottom: 1rem;
-  }
-  
-  .input-container input {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    background-color: #444; /* Gray background */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:disabled {
-    background-color: #d3d3d3; /* Lighter gray when disabled */
-  }
-  
-  button:hover:not(:disabled) {
-    background-color: #606060; /* Darker gray on hover */
-  }
-  
-  .switch-form-btn {
-    width: 100%;
-    padding: 0.8rem;
-    margin-top: 1rem;
-    background-color: #d3d3d3; /* Light gray background */
-    color: #444; /* Darker gray text */
-    border: 1px solid #808080;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .switch-form-btn:hover {
-    background-color: #b0b0b0; /* Slightly darker gray on hover */
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  
+}
+
+/* Styling for select element */
+.input-container select {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff; /* White background */
+  color: #333; /* Dark text */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  appearance: none; /* Remove default styling in some browsers */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+}
+
+.input-container select:focus {
+  outline: none;
+  border-color: #444;
+  background-color: #f4f4f4; /* Light gray background on focus */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-container select option {
+  background-color: #fff; /* White background for options */
+  color: #333; /* Dark text color for options */
+}
+
+.input-container select:hover {
+  border-color: #444; /* Darker border color on hover */
+}
+
+/* Add a custom arrow to the select dropdown only */
+.input-container select {
+  position: relative;
+}
+
+.input-container select::after {
+  content: '\25BC'; /* Unicode for the down arrow */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #444; /* Dark arrow color */
+  pointer-events: none;
+}
+

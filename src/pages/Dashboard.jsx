@@ -1,41 +1,31 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import AdminDashboard from './AdminDashboard';
-import JobSeekerDashboard from './JobSeekerDashboard';
-import EmployerDashboard from './EmployerDashboard';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  const userRole = localStorage.getItem('role'); // Assuming role is saved in localStorage
-  const authToken = localStorage.getItem('authToken'); // Assuming the auth token is saved here
+  const navigate = useNavigate();
+  const userRole = localStorage.getItem('role'); // Get the role from localStorage
+  const authToken = localStorage.getItem('authToken'); // Get auth token
 
-  // If the user is not logged in (no authToken), redirect to login page
-  if (!authToken) {
-    return <Navigate to="/login" />;
-  }
+  useEffect(() => {
+    if (!authToken) {
+      // Redirect to login if there's no token
+      navigate("/login");
+    } else if (!userRole || !['admin', 'employer', 'user'].includes(userRole)) {
+      // Redirect to login if the role is missing or invalid
+      navigate("/login");
+    } else {
+      // Redirect to respective dashboard based on role
+      if (userRole === 'admin') {
+        navigate('/admin');
+      } else if (userRole === 'employer') {
+        navigate('/employer');
+      } else if (userRole === 'user') {
+        navigate('/user'); // Make sure '/user' is the correct route for JobSeekerDashboard
+      }
+    }
+  }, [authToken, userRole, navigate]);
 
-  // Fallback for invalid or missing user role
-  if (!userRole) {
-    return <Navigate to="/login" />;
-  }
-
-  return (
-    <div className="dashboard">
-      <Routes>
-        {userRole === 'admin' && (
-          <Route path="/admin" element={<AdminDashboard />} />
-        )}
-        {userRole === 'jobSeeker' && (
-          <Route path="/job-seeker" element={<JobSeekerDashboard />} />
-        )}
-        {userRole === 'employer' && (
-          <Route path="/employer" element={<EmployerDashboard />} />
-        )}
-
-        {/* Redirect for invalid routes or missing role */}
-        <Route path="/*" element={<Navigate to="/login" />} />
-      </Routes>
-    </div>
-  );
+  return null; // No need to render anything here
 };
 
 export default Dashboard;

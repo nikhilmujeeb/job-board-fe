@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode"; // Correct import
 import { useNavigate } from "react-router-dom";
 import "../styles/adminDashboard.css";
 
@@ -10,18 +11,35 @@ const AdminDashboard = () => {
 
   const navigate = useNavigate();
 
-  // Check if the user is an admin
+  // Admin authentication check
   useEffect(() => {
     const checkAdmin = async () => {
+      const token = localStorage.getItem("authToken");
+
+      if (!token) {
+        console.log("No token found. Redirecting to login.");
+        navigate("/login");
+        return;
+      }
+
       try {
+        const decoded = jwtDecode(token);
+        if (decoded.exp * 1000 < Date.now()) {
+          console.log("Token expired. Redirecting to login.");
+          localStorage.removeItem("authToken");
+          navigate("/login");
+          return;
+        }
+
         const response = await axios.get(
           "https://job-board-be-vk4x.onrender.com/api/admin/check-admin",
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is correct
+              Authorization: `Bearer ${token}`,
             },
           }
         );
+
         if (!response.data.isAdmin) {
           alert("Access denied. Admins only.");
           navigate("/login");
@@ -32,35 +50,60 @@ const AdminDashboard = () => {
         navigate("/login");
       }
     };
-  
+
     checkAdmin();
   }, [navigate]);
-  
 
-  // Fetch job listings pending approval
+  // Fetch pending job listings
   useEffect(() => {
     const fetchPendingJobs = async () => {
-      try {
-        const response = await axios.get('https://job-board-be-vk4x.onrender.com/api/job/pending', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-          },
-        });
-        console.log('Pending Jobs:', response.data.jobs);
-      } catch (error) {
-        console.error('Error fetching pending jobs:', error);
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        console.log("No token found. Redirecting to login.");
+        navigate("/login");
+        return;
       }
-    };    
-  }, []);
+
+      try {
+        console.log("Fetching pending jobs...");
+        const response = await axios.get(
+          "https://job-board-be-vk4x.onrender.com/api/job/pending",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const jobs = response.data.jobs || [];
+        const filteredJobs = jobs.filter((job) => !job.isApproved);
+        setJobListings(filteredJobs);
+      } catch (error) {
+        console.error("Error fetching pending jobs:", error);
+        setJobListings([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPendingJobs();
+  }, [navigate]);
 
   // Approve a job listing
   const approveJob = async (jobId) => {
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `https://job-board-be-vk4x.onrender.com/api/job/approve/${jobId}`
+        `https://job-board-be-vk4x.onrender.com/api/job/approve/${jobId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setMessage({ type: "success", content: response.data.message });
-      setJobListings((prev) => prev.filter((job) => job._id !== jobId));
+      setJobListings((prev) => prev.filter((job) => job._id !== jobId)); // Remove approved job from the list
     } catch (error) {
       setMessage({
         type: "error",

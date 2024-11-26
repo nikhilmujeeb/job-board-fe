@@ -1,0 +1,37 @@
+.terms-and-privacy {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .terms-of-service, .privacy-policy {
+    margin-bottom: 20px;
+  }
+  
+  .terms-of-service h1, .privacy-policy h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .terms-of-service p, .privacy-policy p {
+    color: #555;
+  }
+  
+  .terms-of-service ul, .privacy-policy ul {
+    padding-left: 20px;
+  }
+  
+  .terms-of-service li, .privacy-policy li {
+    margin-bottom: 10px;
+  }
+  
+  .divider {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 30px 0;
+  }
+  

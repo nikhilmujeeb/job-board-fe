@@ -4,6 +4,7 @@ const API_URL = 'https://job-board-be-vk4x.onrender.com/api';
 
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('authToken');
+  console.log('Token in request header:', token);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -19,11 +20,11 @@ export const login = async (credentials) => {
   }
 };
 
-export const signup = async (userDetails) => {
+export const signup = async ({ name, email, password, role }) => {
   try {
-    const { data } = await axios.post(`${API_URL}/auth/signup`, userDetails);
-    return data;
+    const response = await axios.post(`${API_URL}/auth/signup`, { name, email, password, role });
+    return response.data; 
   } catch (error) {
-    throw error.response?.data || { message: 'Signup failed' };
+    throw new Error(error.response ? error.response.data.message : 'Signup failed');
   }
 };

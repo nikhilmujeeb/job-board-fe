@@ -12,6 +12,15 @@ import AboutUs from './pages/AboutUs';
 import Careers from './pages/Careers';
 import CreateJobListing from './pages/CreateJob';
 import AdminDashboard from './pages/AdminDashboard';
+import HelpCenter from './pages/HelpCenter';
+import ContactUs from "./pages/ContactUs";
+import SuccessStories from "./pages/SuccessStories";
+import Feedback from './pages/Feedback';
+import SocialMedia from './pages/SocialMedia';
+import Support from './pages/Support';
+import TermsAndPrivacy from './pages/TermsOfService';
+import JobSeekerDashboard from "./pages/JobSeekerDashboard";
+import EmployerDashboard from "./pages/EmployerDashboard";
 
 const App = () => (
   <ThemeProvider>
@@ -26,6 +35,15 @@ const App = () => (
           <Route path='/careers' element={<Careers />} />
           <Route path="/create-job" element={<CreateJobListing />} />
           <Route path='/admin' element={<AdminDashboard />} />
+          <Route path='/help-center' element={<HelpCenter />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/success-stories" element={<SuccessStories />} />
+          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/social-media" element={<SocialMedia />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
+          <Route path="/user" element={<JobSeekerDashboard />} />
+          <Route path="/employer" element={<EmployerDashboard />} />
           <Route
             path="/dashboard/*"
             element={

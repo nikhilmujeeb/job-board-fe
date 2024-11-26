@@ -1,0 +1,52 @@
+.help-center {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .help-center h1 {
+    text-align: center;
+    color: #444;
+  }
+  
+  .help-center section {
+    margin-bottom: 30px;
+  }
+  
+  .help-center h2 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .faq h3, .troubleshooting h3 {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    color: #222;
+  }
+  
+  .faq p, .troubleshooting p {
+    margin: 5px 0 15px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul li {
+    margin: 5px 0;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,28 @@
+.employer-dashboard {
+    padding: 20px;
+  }
+  
+  .post-job-form {
+    margin-bottom: 20px;
+  }
+  
+  .post-job-form input {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .posted-jobs ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .posted-jobs li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+  
