@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // Correct import
+import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import "../styles/adminDashboard.css";
 
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
       const token = localStorage.getItem("authToken");
 
       if (!token) {
-        console.log("No token found. Redirecting to login.");
+        console.warn("No token found. Redirecting to login.");
         navigate("/login");
         return;
       }
@@ -25,13 +25,13 @@ const AdminDashboard = () => {
       try {
         const decoded = jwtDecode(token);
         if (decoded.exp * 1000 < Date.now()) {
-          console.log("Token expired. Redirecting to login.");
+          console.warn("Token expired. Redirecting to login.");
           localStorage.removeItem("authToken");
           navigate("/login");
           return;
         }
 
-        const response = await axios.get(
+        const { data } = await axios.get(
           "https://job-board-be-vk4x.onrender.com/api/admin/check-admin",
           {
             headers: {
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
           }
         );
 
-        if (!response.data.isAdmin) {
+        if (!data.isAdmin) {
           alert("Access denied. Admins only.");
           navigate("/login");
         }
@@ -58,15 +58,15 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchPendingJobs = async () => {
       const token = localStorage.getItem("authToken");
+    
       if (!token) {
-        console.log("No token found. Redirecting to login.");
+        console.warn("No token found. Redirecting to login.");
         navigate("/login");
         return;
       }
-
+    
       try {
-        console.log("Fetching pending jobs...");
-        const response = await axios.get(
+        const { data } = await axios.get(
           "https://job-board-be-vk4x.onrender.com/api/job/pending",
           {
             headers: {
@@ -74,26 +74,40 @@ const AdminDashboard = () => {
             },
           }
         );
-
-        const jobs = response.data.jobs || [];
-        const filteredJobs = jobs.filter((job) => !job.isApproved);
-        setJobListings(filteredJobs);
+    
+        console.log("Full API Response:", data); // Log entire response to inspect data structure
+    
+        // Check if 'isApproved' is properly set
+        data.forEach(job => {
+          console.log(`Job Title: ${job.title}, isApproved: ${job.isApproved}`);
+        });
+    
+        const pendingJobs = data?.filter((job) => job.isApproved === false) || [];
+        console.log("Pending jobs after filtering:", pendingJobs);
+    
+        setJobListings(pendingJobs);
       } catch (error) {
-        console.error("Error fetching pending jobs:", error);
+        console.error("Error fetching pending jobs:", error.message);
         setJobListings([]);
       } finally {
         setLoading(false);
       }
-    };
+    };    
 
     fetchPendingJobs();
   }, [navigate]);
 
   // Approve a job listing
   const approveJob = async (jobId) => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      console.warn("No token found. Redirecting to login.");
+      navigate("/login");
+      return;
+    }
+
     try {
-      const token = localStorage.getItem("authToken");
-      const response = await axios.put(
+      const { data } = await axios.put(
         `https://job-board-be-vk4x.onrender.com/api/job/approve/${jobId}`,
         {},
         {
@@ -102,9 +116,16 @@ const AdminDashboard = () => {
           },
         }
       );
-      setMessage({ type: "success", content: response.data.message });
-      setJobListings((prev) => prev.filter((job) => job._id !== jobId)); // Remove approved job from the list
+
+      setMessage({
+        type: "success",
+        content: data.message || "Job approved successfully.",
+      });
+      setJobListings((prevJobs) =>
+        prevJobs.filter((job) => job._id !== jobId)
+      );
     } catch (error) {
+      console.error("Error approving job listing:", error.message);
       setMessage({
         type: "error",
         content: error.response?.data?.message || "Failed to approve job listing.",
@@ -134,6 +155,12 @@ const AdminDashboard = () => {
               <th>Title</th>
               <th>Company</th>
               <th>Location</th>
+              <th>Salary Range</th>
+              <th>Category</th>
+              <th>Experience</th>
+              <th>Contact</th>
+              <th>Job Type</th>
+              <th>Description</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -143,6 +170,12 @@ const AdminDashboard = () => {
                 <td>{job.title}</td>
                 <td>{job.company}</td>
                 <td>{job.location}</td>
+                <td>{job.salaryRange}</td>
+                <td>{job.category}</td>
+                <td>{job.experience}</td>
+                <td>{job.contact}</td>
+                <td>{job.jobType}</td>
+                <td className="description">{job.description}</td>
                 <td>
                   <button onClick={() => approveJob(job._id)} className="approve-button">
                     Approve
