@@ -1,28 +1,96 @@
+/* General Styling for Employer Dashboard */
 .employer-dashboard {
-    padding: 20px;
-  }
-  
-  .post-job-form {
-    margin-bottom: 20px;
-  }
-  
-  .post-job-form input {
-    display: block;
-    margin: 10px 0;
-    padding: 8px;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .posted-jobs ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .posted-jobs li {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-  }
-  
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Post Job Button */
+.post-job-link {
+  margin-bottom: 20px;
+}
+
+.post-job-link button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-job-link button:hover {
+  background-color: #0056b3;
+}
+
+/* Container for Posted Jobs */
+.posted-jobs,
+.profiles-list {
+  margin-top: 20px;
+}
+
+.posted-jobs ul,
+.profiles-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Job Container Styling */
+.job-container {
+  position: relative; /* Make this the parent container to position the delete button */
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.job-container h2 {
+  margin-top: 0;
+}
+
+.job-container p {
+  margin-bottom: 10px;
+}
+
+/* Red cross button styles */
+.delete-btn {
+  position: absolute;  /* Position the button absolutely inside the job container */
+  top: 5px;  /* 5px from the top */
+  right: 5px;  /* 5px from the right */
+  background: none;  /* Remove background */
+  border: none;  /* Remove border */
+  color: red;  /* Red color for the cross */
+  font-size: 20px;  /* Size of the cross */
+  cursor: pointer;  /* Change cursor to pointer */
+  padding: 0;  /* Remove padding to prevent button from being too large */
+  width: 20px; /* Set the width to match the size of the cross */
+  height: 20px; /* Set the height to match the size of the cross */
+  display: flex; /* Keep it as a flex container */
+  justify-content: center; /* Center the cross */
+  align-items: center; /* Center the cross */
+}
+
+.delete-btn:hover {
+  color: darkred;  /* Dark red on hover */
+}
+
+/* Job List Styling */
+.posted-jobs li {
+  position: relative; /* Make the container position relative to place the cross in the right place */
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex; /* Use flex to make sure the container stays compact */
+  flex-direction: column; /* Align child elements in a column */
+}
+
+
+.profiles-list a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.profiles-list a:hover {
+  text-decoration: underline;
+}

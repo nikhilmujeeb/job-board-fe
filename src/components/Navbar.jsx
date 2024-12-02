@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
-import '../styles/Navbar.css';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+import "../styles/Navbar.css";
 import logo from "./logo.png";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("authToken"));
   const [isExpanded, setIsExpanded] = useState(false);
-  const isAuthenticated = !!localStorage.getItem('token');
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    alert('You have logged out.');
-    navigate('/login');
+    localStorage.clear(); // Clear all tokens and roles
+    setIsAuthenticated(false);
+    alert("Logged out successfully.");
+    navigate("/login");
   };
 
   const toggleNavbar = () => {
@@ -26,7 +27,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="navbar-left">
           <Link to="/" className="logo-link">
-          <img src={logo} alt="Logo" className="logo-image" />
+            <img src={logo} alt="Logo" className="logo-image" />
             <span className="logo-text">JOB SEEKER</span>
           </Link>
 
@@ -43,7 +44,7 @@ const Navbar = () => {
         {/* Theme Toggle and Auth Links */}
         <div className="navbar-right">
           <button className="theme-button" onClick={toggleTheme}>
-            {theme === 'light' ? 'Dark' : 'Light'} Mode
+            {theme === "light" ? "Dark" : "Light"} Mode
           </button>
         </div>
       </div>
@@ -75,8 +76,7 @@ const Navbar = () => {
             <Link to="/feedback">Feedback</Link>
             <Link to="/support">Support</Link>
           </div>
-
-          <div className="navbar-right">
+          <div>
           {isAuthenticated ? (
             <button onClick={handleLogout} className="auth-button logout-button">
               Logout
@@ -86,7 +86,7 @@ const Navbar = () => {
               Login
             </Link>
           )}
-        </div>
+          </div>
         </div>
       )}
     </nav>

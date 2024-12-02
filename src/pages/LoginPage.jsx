@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import {jwtDecode} from "jwt-decode"; // Corrected import
 import { login, signup } from "../services/api";
-import { jwtDecode } from "jwt-decode"; // Correct import
 import "../styles/login.css";
 
 const LoginPage = () => {
@@ -28,33 +28,37 @@ const LoginPage = () => {
         response = await signup({ name, email, password, role });
         alert("Signup successful! Please login.");
         setIsLogin(true);
-        return; // Avoid continuing after successful signup
+        return;
       }
 
-      const token = response.token;
+      const token = response?.token;
+      if (!token) {
+        throw new Error("Token missing from response.");
+      }
 
+      // Decode and validate token
       const decoded = jwtDecode(token);
-      console.log("Decoded JWT:", decoded);
-
       if (decoded.exp * 1000 < Date.now()) {
         throw new Error("Session expired. Please login again.");
       }
 
-      // Save the token and role in localStorage
+      // Save token and role to localStorage
       localStorage.setItem("authToken", token);
       localStorage.setItem("role", decoded.role);
-      console.log("Token stored:", localStorage.getItem("authToken"));
-      console.log("Role stored:", localStorage.getItem("role"));
 
       alert("Login successful!");
 
-      // Redirect to the dashboard based on the role
-      const redirectPath = location.state?.from || `/${decoded.role}`;
-      console.log("Redirecting to:", redirectPath);
+      // Redirect based on role or fallback to home
+      const redirectPath = location.state?.from || {
+        admin: "/admin",
+        employer: "/employer",
+        user: "/",
+      }[decoded.role] || "/";
+
       navigate(redirectPath, { replace: true });
     } catch (err) {
       setError(err.message || "Login failed. Please check your credentials.");
-      console.error("Error during submission:", err);  // Log the error for debugging
+      console.error("Error during login:", err);
     } finally {
       setIsLoading(false);
     }
@@ -77,14 +81,15 @@ const LoginPage = () => {
                 required
               />
             </div>
-
             <div className="input-container">
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 required
               >
-                <option>--Select Role--</option>
+                <option value="" disabled>
+                  -- Select Role --
+                </option>
                 <option value="user">User</option>
                 <option value="employer">Employer</option>
               </select>

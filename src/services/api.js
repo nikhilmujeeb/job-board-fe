@@ -1,13 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = 'https://job-board-be-vk4x.onrender.com/api';
+const API_URL = "https://job-board-be-vk4x.onrender.com/api";
 
 axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem('authToken');
-  console.log('Token in request header:', token);
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+  const token = localStorage.getItem("authToken");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
@@ -16,15 +13,15 @@ export const login = async (credentials) => {
     const { data } = await axios.post(`${API_URL}/auth/login`, credentials);
     return data;
   } catch (error) {
-    throw error.response?.data || { message: 'Login failed' };
+    throw error.response?.data || { message: "Login failed" };
   }
 };
 
-export const signup = async ({ name, email, password, role }) => {
+export const signup = async (details) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/signup`, { name, email, password, role });
-    return response.data; 
+    const { data } = await axios.post(`${API_URL}/auth/signup`, details);
+    return data;
   } catch (error) {
-    throw new Error(error.response ? error.response.data.message : 'Signup failed');
+    throw error.response?.data || { message: "Signup failed" };
   }
 };
