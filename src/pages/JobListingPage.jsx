@@ -117,7 +117,6 @@ const JobListingPage = () => {
           <option value="">All Job Types</option>
           <option value="Full-time">Full-time</option>
           <option value="Part-time">Part-time</option>
-          <option value="Remote">Remote</option>
         </select>
       </div>
 
