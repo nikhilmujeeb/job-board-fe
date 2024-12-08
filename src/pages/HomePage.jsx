@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; // Make sure you have axios installed
+import axios from 'axios';
 
 const HomePage = () => {
   const [jobListings, setJobListings] = useState([]);
@@ -63,8 +63,8 @@ const HomePage = () => {
         </Link>
       </div>
 
-            {/* Features Section */}
-            <div className="features">
+      {/* Features Section */}
+      <div className="features">
         <h2>Our Key Features</h2>
         <div className="feature">
           <h3>Find Job Opportunities</h3>
@@ -107,6 +107,13 @@ const HomePage = () => {
         ) : (
           <p>No job listings available</p>
         )}
+
+        {/* See More Button */}
+        <div className="see-more">
+          <Link to="/job-listings" className="cta-button">
+            See More
+          </Link>
+        </div>
       </div>
 
       {/* Testimonials Section */}
