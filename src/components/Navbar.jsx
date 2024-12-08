@@ -54,7 +54,7 @@ const Navbar = () => {
             <h3>Explore Opportunities</h3>
             <Link to="/job-listings">Find Jobs</Link>
             <Link to="/create-job">Post a Job</Link>
-            <Link to="/create-profile">Create Profile</Link>
+            <Link to="/dashboard">DashBoard</Link>
           </div>
           <div className="dropdown-column">
             <h3>User Resources</h3>
