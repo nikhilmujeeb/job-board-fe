@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Select from 'react-select'; // Import react-select for searchable dropdown
 import '../styles/joblist.css';
 
 const JobListingPage = () => {
@@ -33,10 +34,9 @@ const JobListingPage = () => {
     filterJobs(newQuery, locationFilter, typeFilter);
   };
 
-  const handleLocationChange = (e) => {
-    const newLocation = e.target.value;
-    setLocationFilter(newLocation);
-    filterJobs(query, newLocation, typeFilter);
+  const handleLocationChange = (selectedOption) => {
+    setLocationFilter(selectedOption ? selectedOption.value : ''); // Set selected location value
+    filterJobs(query, selectedOption ? selectedOption.value : '', typeFilter);
   };
 
   const handleTypeChange = (e) => {
@@ -94,6 +94,14 @@ const JobListingPage = () => {
 
   if (isLoading) return <div>Loading jobs...</div>;
 
+  // Define the options for the location filter
+  const locationOptions = [
+    { value: '', label: 'All Locations' },
+    { value: 'New York', label: 'New York' },
+    { value: 'Remote', label: 'Remote' },
+    // Add more locations if needed
+  ];
+
   return (
     <div>
       <h2>Search for Jobs</h2>
@@ -107,11 +115,12 @@ const JobListingPage = () => {
           onChange={handleSearchChange}
           placeholder="Search for jobs"
         />
-        <select onChange={handleLocationChange} value={locationFilter}>
-          <option value="">All Locations</option>
-          <option value="New York">New York</option>
-          <option value="Remote">Remote</option>
-        </select>
+        <Select
+          value={locationOptions.find(option => option.value === locationFilter)}
+          onChange={handleLocationChange}
+          options={locationOptions}
+          placeholder="Select Location"
+        />
         <select onChange={handleTypeChange} value={typeFilter}>
           <option value="">All Job Types</option>
           <option value="Full-time">Full-time</option>
