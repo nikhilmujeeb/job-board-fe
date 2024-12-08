@@ -127,6 +127,7 @@ body {
 .job-listing .cta-button {
   margin-top: 1rem;
   display: inline-block;
+  text-decoration: none;
 }
 
 /* Testimonials Section */
