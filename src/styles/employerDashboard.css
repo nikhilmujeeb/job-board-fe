@@ -19,14 +19,14 @@
   --primary-bg-color: #121212;
   --secondary-bg-color: #333;
   --text-color: #e0e0e0;
-  --button-bg-color: #357a38;
-  --button-hover-bg-color: #2f6b33;
+  --button-bg-color: #4CAF50; /* Green */
+  --button-hover-bg-color: #45a049; /* Darker Green */
   --border-color: #444;
   --border-radius: 5px;
   --delete-btn-color: #ff4d4d;
   --delete-btn-hover-color: #ff1a1a;
-  --link-color: #66b3ff;
-  --link-hover-color: #3399ff;
+  --link-color: #66d9ff; /* Lighter cyan color */
+  --link-hover-color: #33b3cc; /* Darker cyan */
   --box-shadow-color: rgba(255, 255, 255, 0.1);
 }
 
