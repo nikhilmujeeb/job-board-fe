@@ -8,10 +8,11 @@ const JobListingPage = () => {
   const [query, setQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState(''); 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(null); // Store selected job for popup
-  const [isApplying, setIsApplying] = useState(false); // Track applying state
+  const [selectedJob, setSelectedJob] = useState(null); 
+  const [isApplying, setIsApplying] = useState(false); 
 
   useEffect(() => {
     axios
@@ -30,23 +31,29 @@ const JobListingPage = () => {
   const handleSearchChange = (e) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    filterJobs(newQuery, locationFilter, typeFilter);
+    filterJobs(newQuery, locationFilter, typeFilter, categoryFilter);
   };
 
   const handleLocationChange = (e) => {
     const newLocation = e.target.value;
     setLocationFilter(newLocation);
-    filterJobs(query, newLocation, typeFilter);
+    filterJobs(query, newLocation, typeFilter, categoryFilter);
   };
 
   const handleTypeChange = (e) => {
     const newType = e.target.value;
     setTypeFilter(newType);
-    filterJobs(query, locationFilter, newType);
+    filterJobs(query, locationFilter, newType, categoryFilter);
+  };
+
+  const handleCategoryChange = (e) => {
+    const newCategory = e.target.value;
+    setCategoryFilter(newCategory);
+    filterJobs(query, locationFilter, typeFilter, newCategory);
   };
 
   const handleApplyClick = async (job) => {
-    if (isApplying) return; // Prevent multiple applications
+    if (isApplying) return; 
     setIsApplying(true);
 
     const token = localStorage.getItem('authToken');
@@ -73,21 +80,22 @@ const JobListingPage = () => {
   };
 
   const handleViewDetailsClick = (job) => {
-    setSelectedJob(job); // Show the details popup
+    setSelectedJob(job);
   };
 
   const handleClosePopup = (e) => {
     if (e.target.className === 'popup') {
-      setSelectedJob(null); // Close popup when clicking outside
+      setSelectedJob(null); 
     }
   };
 
-  const filterJobs = (query, location, type) => {
+  const filterJobs = (query, location, type, category) => {
     const filtered = jobs.filter(
       (job) =>
         (!query || job.title?.toLowerCase().includes(query.toLowerCase())) &&
         (!location || job.location?.toLowerCase().includes(location.toLowerCase())) &&
-        (!type || job.jobType?.toLowerCase() === type.toLowerCase())
+        (!type || job.jobType?.toLowerCase() === type.toLowerCase()) &&
+        (!category || job.category?.toLowerCase() === category.toLowerCase()) 
     );
     setFilteredJobs(filtered);
   };
@@ -118,6 +126,19 @@ const JobListingPage = () => {
           <option value="Full-time">Full-time</option>
           <option value="Part-time">Part-time</option>
         </select>
+        <select onChange={handleCategoryChange} value={categoryFilter}>
+           <option value="">Select a category</option>
+            <option value="Software">Software</option>
+           <option value="Marketing">Marketing</option>
+           <option value="Design">Design</option>
+           <option value="Sales">Sales</option>
+           <option value="Technology">Technology</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Education">Education</option>
+            <option value="Business">Business</option>
+            <option value="Engineering">Engineering</option>
+              <option value="Creative Arts">Creative Arts</option>
+          </select>
       </div>
 
       <div className="job-listings">
@@ -131,6 +152,7 @@ const JobListingPage = () => {
               <p><strong>Location:</strong> {job.location}</p>
               <p><strong>Salary Range:</strong> {job.salaryRange}</p>
               <p><strong>Job Type:</strong> {job.jobType}</p>
+              <p><strong>Category:</strong> {job.category}</p> {/* Display category */}
               <button onClick={() => handleApplyClick(job)} disabled={isApplying}>
                 {isApplying ? 'Applying...' : 'Apply'}
               </button>
@@ -151,6 +173,7 @@ const JobListingPage = () => {
             <p><strong>Location:</strong> {selectedJob.location}</p>
             <p><strong>Salary Range:</strong> {selectedJob.salaryRange}</p>
             <p><strong>Job Type:</strong> {selectedJob.jobType}</p>
+            <p><strong>Category:</strong> {selectedJob.category}</p> {/* Display category */}
             <p><strong>Description:</strong> {selectedJob.description}</p>
             <p><strong>Requirements:</strong> {selectedJob.requirements}</p>
             <p><strong>Contact Email:</strong> {selectedJob.contact}</p>
@@ -162,4 +185,3 @@ const JobListingPage = () => {
 };
 
 export default JobListingPage;
-
