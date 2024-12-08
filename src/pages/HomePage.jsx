@@ -92,6 +92,7 @@ const HomePage = () => {
             {jobListings.map((job) => (
               <li key={job._id}>
                 <h3>{job.title}</h3>
+                <p>{job.company}</p>
                 <p>{job.location || 'Location not specified'}</p>
                 <p>{job.salaryRange || 'Salary not specified'}</p>
                 <p>{job.description}</p>
