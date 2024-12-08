@@ -1,133 +1,155 @@
-/* Light Mode Variables */
+/* Default styles for light mode */
 :root {
-  --primary-bg-color: #f9f9f9;
-  --secondary-bg-color: #fff;
-  --text-color: #333;
-  --button-bg-color: #007bff;
-  --button-hover-bg-color: #0056b3;
-  --border-color: #ddd;
-  --border-radius: 5px;
-  --delete-btn-color: red;
-  --delete-btn-hover-color: darkred;
-  --link-color: #007bff;
-  --link-hover-color: #0056b3;
-  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  --primary-bg-color: #f5f5f5;
+  --secondary-bg-color: #e0e0e0;
+  --text-color: #000;
+  --heading-color: #333;
+  --paragraph-color: #555;
+  --button-bg-color: #444;
+  --button-hover-bg-color: #333;
+  --border-color: #bbb;
+  --delete-btn-color: #ff0000;
+  --delete-btn-hover-color: #cc0000;
+  --link-color: #333;
+  --link-hover-color: #111;
+  --box-shadow-color: rgba(0, 0, 0, 0.15);
 }
 
-/* Dark Mode Variables */
-.dark {
-  --primary-bg-color: #121212; /* Very dark gray */
-  --secondary-bg-color: #1f1f1f; /* Darker gray */
-  --text-color: #fff; /* White text for better contrast */
-  --button-bg-color: #4CAF50; /* Green */
-  --button-hover-bg-color: #45a049; /* Darker Green */
-  --border-color: #444; /* Slightly lighter gray for borders */
-  --border-radius: 5px;
+/* Dark mode overrides */
+body.dark {
+  --primary-bg-color: #181818;
+  --secondary-bg-color: #202020;
+  --text-color: #ffffff;
+  --heading-color: #eeeeee;
+  --paragraph-color: #cccccc;
+  --button-bg-color: #333;
+  --button-hover-bg-color: #222;
+  --border-color: #555;
   --delete-btn-color: #ff4d4d;
   --delete-btn-hover-color: #ff1a1a;
-  --link-color: #66d9ff; /* Lighter cyan color */
-  --link-hover-color: #33b3cc; /* Darker cyan */
-  --box-shadow-color: rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+  --link-color: #cccccc;
+  --link-hover-color: #ffffff;
+  --box-shadow-color: rgba(255, 255, 255, 0.1);
 }
 
-/* General Styling for Employer Dashboard */
-.employer-dashboard {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  color: var(--text-color); /* Using white text in dark mode */
-  background-color: var(--primary-bg-color); /* Very dark gray background */
-}
-
-/* Post Job Button */
-.post-job-link {
-  margin-bottom: 20px;
-}
-
-.post-job-link button {
-  padding: 10px 20px;
-  background-color: var(--button-bg-color); /* Using green button color */
-  color: #fff;
-  border: none;
-  border-radius: var(--border-radius); /* Using variable */
-  cursor: pointer;
-}
-
-.post-job-link button:hover {
-  background-color: var(--button-hover-bg-color); /* Using hover effect for button */
-}
-
-/* Container for Posted Jobs */
-.posted-jobs,
-.profiles-list {
-  margin-top: 20px;
-}
-
-.posted-jobs ul,
-.profiles-list ul {
-  list-style: none;
+/* Apply colors to elements */
+body {
+  background-color: var(--primary-bg-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
 
-/* Job Container Styling */
-.job-container {
-  position: relative;
-  margin-bottom: 20px;
+/* Header styling */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+/* Paragraph styling */
+p {
+  color: var(--paragraph-color);
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* Button and link styles */
+button, .post-job-link button {
+  background-color: var(--button-bg-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover, .post-job-link button:hover {
+  background-color: var(--button-hover-bg-color);
+  transform: scale(1.05); /* Adds a slight hover effect */
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: normal;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+}
+
+.job-container, .profile-container {
+  background-color: var(--secondary-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   padding: 15px;
-  border: 1px solid var(--border-color); /* Using dark border color */
-  border-radius: var(--border-radius); /* Using variable */
-  background-color: var(--secondary-bg-color); /* Darker gray background for job cards */
-  box-shadow: 0 2px 5px var(--box-shadow-color); /* Light box shadow for job cards */
+  box-shadow: 0 2px 5px var(--box-shadow-color);
 }
 
-.job-container h2 {
-  margin-top: 0;
-  color: var(--text-color); /* White text for job title */
+.job-container h2, .profile-container h2 {
+  color: var(--heading-color);
 }
 
-.job-container p {
-  margin-bottom: 10px;
-  color: var(--text-color); /* White text for job details */
+.job-container p, .profile-container p {
+  color: var(--paragraph-color);
 }
 
-/* Red cross button styles */
+/* Delete Button */
 .delete-btn {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
-  color: var(--delete-btn-color); /* Using delete button color */
-  font-size: 20px;
+  color: var(--delete-btn-color);
+  font-size: 16px;
   cursor: pointer;
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .delete-btn:hover {
-  color: var(--delete-btn-hover-color); /* Using hover effect for delete button */
+  color: var(--delete-btn-hover-color);
+  background-color: rgba(255, 0, 0, 0.2);
 }
 
-/* Job List Styling */
-.posted-jobs li {
-  position: relative;
-  margin-bottom: 10px;
-  border: 1px solid var(--border-color); /* Dark border for job list items */
-  padding: 10px;
-  border-radius: var(--border-radius); /* Using variable */
-  display: flex;
-  flex-direction: column;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
 
-.profiles-list a {
-  color: var(--link-color); /* Using lighter cyan color for links */
-  text-decoration: none;
-}
+  .job-container, .profile-container {
+    padding: 10px;
+  }
 
-.profiles-list a:hover {
-  text-decoration: underline;
-  color: var(--link-hover-color); /* Darker cyan color for link hover */
+  button, .post-job-link button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+  }
+
+  .delete-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
 }
