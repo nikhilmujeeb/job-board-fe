@@ -75,8 +75,7 @@ const HomePage = () => {
           <p>Employers can post job listings to connect with qualified candidates easily.</p>
         </div>
         <div className="feature">
-          <h3>Real-Time Application Tracking</h3>
-          <p>Track the status of your applications and receive real-time updates.</p>
+          <h3>And More</h3>
         </div>
       </div>
 
