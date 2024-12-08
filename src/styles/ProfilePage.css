@@ -1,0 +1,36 @@
+/* src/pages/ProfilePage.css */
+.profile-page {
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .profile-page h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .profile-page h2 {
+    font-size: 1.5rem;
+  }
+  
+  .profile-page p {
+    font-size: 1rem;
+  }
+  
+  .profile-page ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .profile-page li {
+    margin-bottom: 10px;
+  }
+  
+  .profile-page a {
+    color: #0077b5;
+    text-decoration: none;
+  }
+  .profile-page a:hover {
+    text-decoration: underline;
+  }
+  

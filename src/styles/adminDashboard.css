@@ -135,3 +135,49 @@ p {
     overflow-x: auto;
   }
 }
+
+.user-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-list-table th,
+.user-list-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.user-list-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.user-list-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.user-list-table td {
+  font-size: 14px;
+}
+
+.user-list-table .role-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.user-list-table .role-badge.admin {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.user-list-table .role-badge.user {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.user-list-table .role-badge.employer {
+  background-color: #007bff;
+  color: #fff;
+}

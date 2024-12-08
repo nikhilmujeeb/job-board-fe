@@ -1,0 +1,23 @@
+/* src/styles/user-dashboard.css */
+.user-dashboard {
+    padding: 20px;
+  }
+  
+  .profile-info,
+  .applied-jobs {
+    margin-bottom: 30px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  

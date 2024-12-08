@@ -42,3 +42,34 @@ form {
     width: 100%;
   }
   
+  .phone-input-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .phone-input-container input {
+    width: 70%;
+    padding: 8px;
+  }
+  
+  .phone-input-container .country-code-select {
+    width: 30%;
+  }
+  
+  .skills-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .skills-list li {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .skills-list button {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  

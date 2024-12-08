@@ -6,6 +6,7 @@ import "../styles/adminDashboard.css";
 
 const AdminDashboard = () => {
   const [jobListings, setJobListings] = useState([]);
+  const [userList, setUserList] = useState([]); // Ensure this is an array
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState({ type: "", content: "" });
 
@@ -58,13 +59,13 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchPendingJobs = async () => {
       const token = localStorage.getItem("authToken");
-    
+
       if (!token) {
         console.warn("No token found. Redirecting to login.");
         navigate("/login");
         return;
       }
-    
+
       try {
         const { data } = await axios.get(
           "https://job-board-be-vk4x.onrender.com/api/job/pending",
@@ -74,17 +75,17 @@ const AdminDashboard = () => {
             },
           }
         );
-    
-        console.log("Full API Response:", data); // Log entire response to inspect data structure
-    
+
+        console.log("Full API Response for Jobs:", data); // Log entire response to inspect data structure
+
         // Check if 'isApproved' is properly set
-        data.forEach(job => {
+        data.forEach((job) => {
           console.log(`Job Title: ${job.title}, isApproved: ${job.isApproved}`);
         });
-    
+
         const pendingJobs = data?.filter((job) => job.isApproved === false) || [];
         console.log("Pending jobs after filtering:", pendingJobs);
-    
+
         setJobListings(pendingJobs);
       } catch (error) {
         console.error("Error fetching pending jobs:", error.message);
@@ -92,10 +93,50 @@ const AdminDashboard = () => {
       } finally {
         setLoading(false);
       }
-    };    
+    };
 
     fetchPendingJobs();
   }, [navigate]);
+
+  // Fetch all users
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const token = localStorage.getItem("authToken");
+  
+      if (!token) {
+        console.warn("No token found. Redirecting to login.");
+        navigate("/login");
+        return;
+      }
+  
+      try {
+        const { data } = await axios.get(
+          "https://job-board-be-vk4x.onrender.com/api/admin/manage-users",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        // Log the response to see the structure
+        console.log("Full API Response for Users:", data);
+  
+        // Check if 'users' is an array and set the state
+        if (Array.isArray(data.users)) {
+          setUserList(data.users);  // Set the userList state to the 'users' array
+        } else {
+          console.error("Expected 'users' to be an array, but got:", data.users);
+          setUserList([]);
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error.message);
+        setUserList([]);
+      }
+    };
+  
+    fetchUsers();
+  }, [navigate]);  
 
   // Approve a job listing
   const approveJob = async (jobId) => {
@@ -136,14 +177,17 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <h1>Admin Dashboard</h1>
-      <p>Approve job listings submitted by employers.</p>
+      <p>Approve job listings submitted by employers and manage users.</p>
 
       {message.content && (
-        <p className={message.type === "success" ? "success-message" : "error-message"}>
+        <p
+          className={message.type === "success" ? "success-message" : "error-message"}
+        >
           {message.content}
         </p>
       )}
 
+      <h2>Pending Job Listings</h2>
       {loading ? (
         <p>Loading job listings...</p>
       ) : jobListings.length === 0 ? (
@@ -168,7 +212,7 @@ const AdminDashboard = () => {
             {jobListings.map((job) => (
               <tr key={job._id}>
                 <td>{job.title}</td>
-                <td>{job.company}</td>
+                <td>{job.company || "Company not available"}</td>
                 <td>{job.location}</td>
                 <td>{job.salaryRange}</td>
                 <td>{job.category}</td>
@@ -177,7 +221,10 @@ const AdminDashboard = () => {
                 <td>{job.jobType}</td>
                 <td className="description">{job.description}</td>
                 <td>
-                  <button onClick={() => approveJob(job._id)} className="approve-button">
+                  <button
+                    onClick={() => approveJob(job._id)}
+                    className="approve-button"
+                  >
                     Approve
                   </button>
                 </td>
@@ -186,6 +233,30 @@ const AdminDashboard = () => {
           </tbody>
         </table>
       )}
+
+      <h2>Manage Users</h2>
+      <table className="user-list-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    {userList.map((user) => (
+      <tr key={user._id}>
+        <td>{user.name}</td>
+        <td>{user.email}</td>
+        <td>
+          <span className={`role-badge ${user.role.toLowerCase()}`}>
+            {user.role}
+          </span>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
     </div>
   );
 };

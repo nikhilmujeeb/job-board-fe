@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // Corrected import
+import {jwtDecode} from "jwt-decode"; // Correct import
 import "../styles/employerDashboard.css";
 
 const EmployerDashboard = () => {
   const [postedJobs, setPostedJobs] = useState([]);
+  const [profiles, setProfiles] = useState([]);
   const [loadingJobs, setLoadingJobs] = useState(true);
+  const [loadingProfiles, setLoadingProfiles] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPostedJobs = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("authToken");
         if (!token) {
@@ -18,42 +20,59 @@ const EmployerDashboard = () => {
           navigate("/login");
           return;
         }
-
-        const decodedToken = jwtDecode(token); // Use jwtDecode instead of jwt
-        const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
-
-        // Check if the token has expired
+  
+        const decodedToken = jwtDecode(token);
+        const currentTime = Math.floor(Date.now() / 1000);
+  
         if (decodedToken.exp < currentTime) {
           alert("Session expired. Please log in again.");
           navigate("/login");
           return;
         }
-
+  
         // Fetch posted jobs
-        setLoadingJobs(true); // Set loading state for jobs
+        setLoadingJobs(true);
         const jobResponse = await axios.get(
           "https://job-board-be-vk4x.onrender.com/api/job/employer-jobs",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log("Job Response Data:", jobResponse.data); // Log the response data
         setPostedJobs(jobResponse.data.jobs || []);
-        setLoadingJobs(false); // Set loadingJobs to false after data is fetched
+        setLoadingJobs(false);
+  
+        // Fetch profiles (fixed the endpoint URL)
+        setLoadingProfiles(true);
+        const profileResponse = await axios.get(
+          "https://job-board-be-vk4x.onrender.com/api/id/profiles", // Fixed the endpoint URL
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log("Profile Response:", profileResponse.data); // Log API response
+  
+        // Update state based on the response structure
+        if (Array.isArray(profileResponse.data)) {
+          setProfiles(profileResponse.data); // If it's an array directly
+        } else {
+          setProfiles(profileResponse.data.profiles || []); // If profiles are nested inside a 'profiles' key
+        }
+  
+        setLoadingProfiles(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setPostedJobs([]);  // Clear posted jobs in case of an error
-        setLoadingJobs(false);  // Set loading to false even in case of error
+        setPostedJobs([]);
+        setProfiles([]);
+        setLoadingJobs(false);
+        setLoadingProfiles(false);
       }
     };
+  
+    fetchData();
+  }, [navigate]);    
 
-    fetchPostedJobs();
-  }, [navigate]);
-
-  // Handle deleting a job post
   const handleDelete = async (jobId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this job post?");
-    if (confirmDelete) {
+    if (window.confirm("Are you sure you want to delete this job post?")) {
       try {
         const token = localStorage.getItem("authToken");
         if (!token) {
@@ -62,7 +81,6 @@ const EmployerDashboard = () => {
           return;
         }
 
-        // Make API request to delete the job
         await axios.delete(
           `https://job-board-be-vk4x.onrender.com/api/job/${jobId}`,
           {
@@ -70,12 +88,13 @@ const EmployerDashboard = () => {
           }
         );
 
-        // Update state after deletion
-        setPostedJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
+        setPostedJobs((prevJobs) =>
+          prevJobs.filter((job) => job._id !== jobId)
+        );
         alert("Job post deleted successfully.");
       } catch (error) {
         console.error("Error deleting job:", error);
-        alert("Failed to delete job post.");
+        alert("Failed to delete job post. Please try again later.");
       }
     }
   };
@@ -85,7 +104,6 @@ const EmployerDashboard = () => {
       <h1>Employer Dashboard</h1>
       <p>Manage your job listings and view user profiles.</p>
 
-      {/* Redirect to Create Job Post Page */}
       <div className="post-job-link">
         <h2>Post a New Job</h2>
         <button onClick={() => navigate("/create-job")}>
@@ -93,13 +111,13 @@ const EmployerDashboard = () => {
         </button>
       </div>
 
-      {/* Display Posted Jobs */}
+      {/* Posted Jobs Section */}
       <div className="posted-jobs">
         <h2>Your Posted Jobs</h2>
         {loadingJobs ? (
-          <p>Loading jobs...</p>  // Display loading message while jobs are fetching
+          <p>Loading jobs...</p>
         ) : postedJobs.length === 0 ? (
-          <p>No jobs posted yet.</p>  // Display message if no jobs are found
+          <p>No jobs posted yet.</p>
         ) : (
           <ul>
             {postedJobs.map((job) => (
@@ -114,11 +132,88 @@ const EmployerDashboard = () => {
                 <p>
                   {job.company} - {job.location}
                 </p>
+                <p>
+                  <strong>Applicants:</strong>
+                  {job.applicants && job.applicants.length > 0 ? (
+                    <ul>
+                      {job.applicants.map((applicant, index) => (
+                        <li key={index}>
+                          {applicant.email || "No email provided"}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <span>No applicants yet</span>
+                  )}
+                </p>
               </li>
             ))}
           </ul>
         )}
       </div>
+
+      {/* Profiles Section */}
+<div className="profiles-section">
+  <h2>All Profiles</h2>
+  {loadingProfiles ? (
+    <p>Loading profiles...</p>
+  ) : profiles.length === 0 ? (
+    <p>No profiles available.</p>
+  ) : (
+    <ul>
+      {profiles.map((profile) => (
+        <li key={profile._id} className="profile-container">
+          <h3>
+            {profile.firstName} {profile.middleName} {profile.lastName}
+          </h3>
+          <p><strong>Email:</strong> {profile.email}</p>
+          <p><strong>Phone:</strong> {profile.phone}</p>
+          <p><strong>Bio:</strong> {profile.bio}</p>
+
+          <p><strong>Skills:</strong> {profile.skills.join(", ")}</p>
+
+          {/* Education */}
+          <p><strong>Education:</strong> 
+            {profile.education.map((edu, index) => (
+              <span key={edu._id}>
+                {edu.degree} in {edu.fieldOfStudy} from {edu.school} 
+                ({new Date(edu.startDate).getFullYear()} - {new Date(edu.endDate).getFullYear()})
+                {index < profile.education.length - 1 && ", "}
+              </span>
+            ))}
+          </p>
+
+          {/* Experience */}
+          <p><strong>Experience:</strong>
+            {profile.experience.map((exp, index) => (
+              <span key={exp._id}>
+                {exp.jobTitle} at {exp.company} ({new Date(exp.startDate).getFullYear()} - 
+                {exp.endDate ? new Date(exp.endDate).getFullYear() : "Present"})
+                {index < profile.experience.length - 1 && ", "}
+              </span>
+            ))}
+          </p>
+
+          {/* Social Links */}
+          {profile.socialLinks && (
+            <p><strong>Social Links:</strong>
+              {profile.socialLinks.linkedin && (
+                <a href={profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              )}
+              {profile.socialLinks.github && (
+                <a href={profile.socialLinks.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+              )}
+              {profile.socialLinks.twitter && (
+                <a href={profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>
+              )}
+            </p>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
     </div>
   );
 };

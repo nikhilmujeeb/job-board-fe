@@ -21,6 +21,7 @@ import Support from './pages/Support';
 import TermsAndPrivacy from './pages/TermsOfService';
 import JobSeekerDashboard from "./pages/JobSeekerDashboard";
 import EmployerDashboard from "./pages/EmployerDashboard";
+import UserDashboard from './pages/UserDashboard'; // Import the UserDashboard page
 
 const App = () => (
   <ThemeProvider>
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
           <Route path="/user" element={<JobSeekerDashboard />} />
           <Route path="/employer" element={<EmployerDashboard />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} /> {/* User Dashboard route */}
           <Route
             path="/dashboard/*"
             element={

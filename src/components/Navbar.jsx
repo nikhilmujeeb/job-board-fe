@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import "../styles/Navbar.css";
-import logo from "./logo.png";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -27,7 +26,6 @@ const Navbar = () => {
         {/* Logo */}
         <div className="navbar-left">
           <Link to="/" className="logo-link">
-            <img src={logo} alt="Logo" className="logo-image" />
             <span className="logo-text">JOB SEEKER</span>
           </Link>
 

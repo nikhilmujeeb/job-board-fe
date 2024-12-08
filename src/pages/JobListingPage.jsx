@@ -11,15 +11,17 @@ const JobListingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null); // Store selected job for popup
+  const [isApplying, setIsApplying] = useState(false); // Track applying state
 
   useEffect(() => {
-    axios.get('https://job-board-be-vk4x.onrender.com/api/job')
-      .then(response => {
+    axios
+      .get('https://job-board-be-vk4x.onrender.com/api/job')
+      .then((response) => {
         setJobs(response.data);
         setFilteredJobs(response.data);
         setIsLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setIsLoading(false);
         setError('Failed to load jobs');
       });
@@ -43,24 +45,49 @@ const JobListingPage = () => {
     filterJobs(query, locationFilter, newType);
   };
 
-  const handleApplyClick = (job) => {
-    alert(`Applying for ${job.title}`);
+  const handleApplyClick = async (job) => {
+    if (isApplying) return; // Prevent multiple applications
+    setIsApplying(true);
+
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      alert('Please log in to apply for a job');
+      setIsApplying(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `https://job-board-be-vk4x.onrender.com/api/job/apply/${job._id}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      alert(response.data.message || 'Application submitted.');
+    } catch (error) {
+      console.error('Error applying for job:', error);
+      alert(error.response?.data?.message || 'Failed to apply for the job.');
+    } finally {
+      setIsApplying(false);
+    }
   };
 
   const handleViewDetailsClick = (job) => {
     setSelectedJob(job); // Show the details popup
   };
 
-  const handleClosePopup = () => {
-    setSelectedJob(null); // Close the popup
+  const handleClosePopup = (e) => {
+    if (e.target.className === 'popup') {
+      setSelectedJob(null); // Close popup when clicking outside
+    }
   };
 
   const filterJobs = (query, location, type) => {
-    const filtered = jobs.filter(job =>
-      (job.title && job.title.toLowerCase().includes(query.toLowerCase())) ||
-      (job.company && job.company.toLowerCase().includes(query.toLowerCase())) ||
-      (job.location && job.location.toLowerCase().includes(location.toLowerCase())) ||
-      (job.jobType && job.jobType.toLowerCase().includes(type.toLowerCase()))
+    const filtered = jobs.filter(
+      (job) =>
+        (!query || job.title?.toLowerCase().includes(query.toLowerCase())) &&
+        (!location || job.location?.toLowerCase().includes(location.toLowerCase())) &&
+        (!type || job.jobType?.toLowerCase() === type.toLowerCase())
     );
     setFilteredJobs(filtered);
   };
@@ -84,7 +111,6 @@ const JobListingPage = () => {
           <option value="">All Locations</option>
           <option value="New York">New York</option>
           <option value="Remote">Remote</option>
-          {/* Add more options based on your job locations */}
         </select>
         <select onChange={handleTypeChange} value={typeFilter}>
           <option value="">All Job Types</option>
@@ -103,9 +129,11 @@ const JobListingPage = () => {
               <h3>{job.title}</h3>
               <p><strong>Company:</strong> {job.company}</p>
               <p><strong>Location:</strong> {job.location}</p>
-              <p><strong>Salary Range:</strong> {job.salaryRange}</p> {/* Fixed to match backend field */}
+              <p><strong>Salary Range:</strong> {job.salaryRange}</p>
               <p><strong>Job Type:</strong> {job.jobType}</p>
-              <button onClick={() => handleApplyClick(job)}>Apply</button>
+              <button onClick={() => handleApplyClick(job)} disabled={isApplying}>
+                {isApplying ? 'Applying...' : 'Apply'}
+              </button>
               <button onClick={() => handleViewDetailsClick(job)}>View Details</button>
             </div>
           ))
@@ -113,9 +141,11 @@ const JobListingPage = () => {
       </div>
 
       {selectedJob && (
-        <div className="popup">
+        <div className="popup" onClick={handleClosePopup}>
           <div className="popup-content">
-            <button className="close-btn" onClick={handleClosePopup}>X</button>
+            <button className="close-btn" onClick={() => setSelectedJob(null)}>
+              X
+            </button>
             <h3>{selectedJob.title}</h3>
             <p><strong>Company:</strong> {selectedJob.company}</p>
             <p><strong>Location:</strong> {selectedJob.location}</p>
@@ -123,7 +153,7 @@ const JobListingPage = () => {
             <p><strong>Job Type:</strong> {selectedJob.jobType}</p>
             <p><strong>Description:</strong> {selectedJob.description}</p>
             <p><strong>Requirements:</strong> {selectedJob.requirements}</p>
-            <p><strong>Contact Email:</strong> {selectedJob.contact}</p> {/* Added contact email */}
+            <p><strong>Contact Email:</strong> {selectedJob.contact}</p>
           </div>
         </div>
       )}
