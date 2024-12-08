@@ -1,104 +1,135 @@
-/* Job Listing Page */
+/* Light Mode Variables */
+:root {
+  --primary-bg-color: #f9f9f9;
+  --secondary-bg-color: #ffffff;
+  --primary-text-color: #333333;
+  --secondary-text-color: #777777;
+  --input-border-color: #ccc;
+  --input-text-color: #333;
+  --button-bg-color: #007bff;
+  --button-hover-bg-color: #0056b3;
+  --success-message-color: green;
+  --error-message-color: red;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  --border-color: #ddd;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --primary-bg-color: #121212;
+  --secondary-bg-color: #1e1e1e;
+  --primary-text-color: #e0e0e0;
+  --secondary-text-color: #bbbbbb;
+  --input-border-color: #444;
+  --input-text-color: #e0e0e0;
+  --button-bg-color: #357a38;
+  --button-hover-bg-color: #2f6b33;
+  --success-message-color: #81c784;
+  --error-message-color: #e57373;
+  --box-shadow-color: rgba(255, 255, 255, 0.1);
+  --border-color: #333;
+}
+
+/* Job Listing Page Styles */
 .job-listing-page {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .job-listing-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .job-listing-header h1 {
-    font-size: 2em;
-    color: #333;
-  }
-  
-  .job-listing-header p {
-    font-size: 1.2em;
-    color: #777;
-  }
-  
-  .job-listing-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group label {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--primary-bg-color); /* Using variable */
+  border: 1px solid var(--border-color); /* Using variable */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px var(--box-shadow-color); /* Using variable */
+}
+
+.job-listing-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.job-listing-header h1 {
+  font-size: 2em;
+  color: var(--primary-text-color); /* Using variable */
+}
+
+.job-listing-header p {
+  font-size: 1.2em;
+  color: var(--secondary-text-color); /* Using variable */
+}
+
+.job-listing-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: var(--secondary-text-color); /* Using variable */
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 10px;
+  border: 1px solid var(--input-border-color); /* Using variable */
+  border-radius: 5px;
+  font-size: 1em;
+  color: var(--input-text-color); /* Using variable */
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  text-align: center;
+}
+
+.form-actions button {
+  background-color: var(--button-bg-color); /* Using variable */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-actions button:hover {
+  background-color: var(--button-hover-bg-color); /* Using variable */
+}
+
+.success-message {
+  color: var(--success-message-color); /* Using variable */
+  font-weight: bold;
+  text-align: center;
+}
+
+.error-message {
+  color: var(--error-message-color); /* Using variable */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .job-listing-page {
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  }
+
+  .job-listing-header h1 {
+    font-size: 1.8em;
+  }
+
+  .job-listing-header p {
     font-size: 1em;
-    color: #333;
   }
-  
-  .form-group textarea {
-    resize: vertical;
-  }
-  
-  .form-actions {
-    text-align: center;
-  }
-  
-  .form-actions button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .form-actions button:hover {
-    background-color: #0056b3;
-  }
-  
-  .success-message {
-    color: green;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .error-message {
-    color: red;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .job-listing-page {
-      padding: 10px;
-    }
-  
-    .job-listing-header h1 {
-      font-size: 1.8em;
-    }
-  
-    .job-listing-header p {
-      font-size: 1em;
-    }
-  }
-  
+}

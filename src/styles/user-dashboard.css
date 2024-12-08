@@ -1,23 +1,190 @@
-/* src/styles/user-dashboard.css */
-.user-dashboard {
-    padding: 20px;
+/* General Styles */
+.employer-dashboard {
+  padding: 40px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fb;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1, h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #34495e;
+}
+
+/* Post Job Button */
+.post-job-link button {
+  padding: 12px 25px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.post-job-link button:hover {
+  background-color: #2980b9;
+  transform: translateY(-3px);
+}
+
+/* Job Listings */
+.posted-jobs ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.job-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.job-container:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.job-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.job-container p {
+  font-size: 1.1rem;
+  color: #34495e;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Profiles Section */
+.profiles-section ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.profile-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  overflow: hidden;
+}
+
+.profile-container:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.profile-container h3 {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-container p {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #34495e;
+}
+
+.profile-container a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.profile-container a:hover {
+  color: #2980b9;
+}
+
+/* Dark Mode Styles */
+.app.dark .employer-dashboard {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.app.dark .posted-jobs ul li,
+.app.dark .profile-container {
+  background-color: #34495e;
+  color: #ecf0f1;
+}
+
+.app.dark .delete-btn {
+  background: #c0392b;
+}
+
+.app.dark .post-job-link button {
+  background-color: #2980b9;
+}
+
+.app.dark .profile-container h3 {
+  color: #ecf0f1;
+}
+
+.app.dark .profile-container a {
+  color: #3498db;
+}
+
+.app.dark .profile-container a:hover {
+  color: #1abc9c;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .employer-dashboard {
+    padding: 15px;
   }
-  
-  .profile-info,
-  .applied-jobs {
-    margin-bottom: 30px;
+
+  .job-container,
+  .profile-container {
+    padding: 15px;
   }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
+
+  .post-job-link button {
+    width: 100%;
+    padding: 12px;
   }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  h2 {
-    color: #333;
-  }
-  
+}

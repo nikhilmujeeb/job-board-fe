@@ -1,86 +1,141 @@
+/* Light Mode Variables */
+:root {
+  --primary-bg-color: #fff;
+  --secondary-bg-color: #f9f9f9;
+  --primary-text-color: #333;
+  --secondary-text-color: #444;
+  --hover-bg-color: #eaeaea;
+  --card-bg-color: #fff;
+  --card-border-color: #ddd;
+  --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --card-hover-bg-color: #f4f4f4;
+  --card-hover-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Mode Variables */
+.dark {
+  --primary-bg-color: #121212;
+  --secondary-bg-color: #1e1e1e;
+  --primary-text-color: #e0e0e0;
+  --secondary-text-color: #bbb;
+  --hover-bg-color: #2e2e2e;
+  --card-bg-color: #333;
+  --card-border-color: #444;
+  --card-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+  --card-hover-bg-color: #444;
+  --card-hover-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
 /* Careers Page */
 .careers-page {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--primary-bg-color); /* Using variable */
+  color: var(--primary-text-color); /* Using variable */
+}
+
+.careers-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.careers-header h1 {
+  font-size: 2.5em;
+  color: var(--primary-text-color); /* Using variable */
+}
+
+.careers-header p {
+  font-size: 1.2em;
+  color: var(--secondary-text-color); /* Using variable */
+}
+
+.career-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.career-card {
+  background-color: var(--card-bg-color); /* Using variable */
+  border: 1px solid var(--card-border-color); /* Using variable */
+  padding: 20px;
+  width: 250px;
+  max-width: 100%;
+  box-shadow: var(--card-shadow); /* Using variable */
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.career-card:hover {
+  background-color: var(--card-hover-bg-color); /* Using variable */
+  box-shadow: var(--card-hover-shadow); /* Using variable */
+}
+
+.career-card h3 {
+  font-size: 1.5em;
+  color: var(--primary-text-color); /* Using variable */
+}
+
+.career-card p {
+  font-size: 1.1em;
+  color: var(--secondary-text-color); /* Using variable */
+  margin: 10px 0;
+}
+
+.career-card ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.career-card li {
+  font-size: 1em;
+  color: var(--secondary-text-color); /* Using variable */
+  margin-bottom: 5px;
+}
+
+.career-card strong {
+  font-weight: bold;
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+  .careers-page {
+    background-color: var(--primary-bg-color); /* Using dark mode variable */
+    color: var(--primary-text-color); /* Using dark mode variable */
   }
-  
-  .careers-header {
-    text-align: center;
-    margin-bottom: 40px;
+
+  .careers-header h1, .career-card h3 {
+    color: var(--primary-text-color); /* Using dark mode variable */
   }
-  
-  .careers-header h1 {
-    font-size: 2.5em;
-    color: #333;
+
+  .careers-header p, .career-card p, .career-card li {
+    color: var(--secondary-text-color); /* Using dark mode variable */
   }
-  
-  .careers-header p {
-    font-size: 1.2em;
-    color: #777;
-  }
-  
-  .career-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-  }
-  
+
   .career-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    width: 250px;
-    max-width: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
+    background-color: var(--card-bg-color); /* Using dark mode variable */
+    border: 1px solid var(--card-border-color); /* Using dark mode variable */
   }
-  
+
   .career-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: var(--card-hover-bg-color); /* Using dark mode variable */
+    box-shadow: var(--card-hover-shadow); /* Using dark mode variable */
   }
-  
-  .career-card h3 {
-    font-size: 1.5em;
-    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .career-categories {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .career-card p {
-    font-size: 1.1em;
-    color: #555;
-    margin: 10px 0;
+
+  .career-card {
+    width: 80%; /* Full width on small screens */
   }
-  
-  .career-card ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 10px;
-  }
-  
-  .career-card li {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  .career-card strong {
-    font-weight: bold;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .career-categories {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .career-card {
-      width: 80%; /* Full width on small screens */
-    }
-  }
-  
+}

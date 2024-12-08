@@ -1,28 +1,71 @@
+/* Jobseeker Dashboard */
 .jobseeker-dashboard {
-    padding: 20px;
-  }
-  
-  .job-list {
-    list-style-type: none;
-    padding: 0;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Job List */
+.job-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Job List Item */
+.job-list li {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  background-color: #fff; /* Default background for light mode */
+  color: #333; /* Default text color */
+}
+
+/* Button Styles */
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Dark Mode Styles */
+.app.dark .jobseeker-dashboard {
+  background-color: #222; /* Dark background */
+  color: #fff; /* Light text color */
+}
+
+.app.dark .job-list li {
+  background-color: #333; /* Dark background for job list items */
+  border-color: #444; /* Darker border color */
+  color: #ccc; /* Lighter text color */
+}
+
+.app.dark button {
+  background-color: #66bb6a; /* Lighter green for buttons in dark mode */
+}
+
+.app.dark button:hover {
+  background-color: #4caf50; /* Darker green for hover effect */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  .jobseeker-dashboard {
+    padding: 15px;
   }
   
   .job-list li {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
+    padding: 8px 12px;
   }
-  
+
   button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
+    padding: 8px 12px;
   }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+}

@@ -1,94 +1,127 @@
+/* Light Mode Variables */
+:root {
+  --primary-bg-color: #fff;
+  --secondary-bg-color: #f9f9f9;
+  --primary-text-color: #333;
+  --secondary-text-color: #444;
+  --button-bg-color: #007bff;
+  --button-hover-bg-color: #0056b3;
+  --link-color: #007bff;
+  --link-hover-color: #0056b3;
+  --success-message-color: green;
+  --input-border-color: #ccc;
+  --form-bg-color: #f9f9f9;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Variables */
+.dark {
+  --primary-bg-color: #121212;
+  --secondary-bg-color: #1e1e1e;
+  --primary-text-color: #e0e0e0;
+  --secondary-text-color: #bbb;
+  --button-bg-color: #357a38;
+  --button-hover-bg-color: #2f6b33;
+  --link-color: #81c784;
+  --link-hover-color: #66bb6a;
+  --success-message-color: #81c784;
+  --input-border-color: #444;
+  --form-bg-color: #333;
+  --box-shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Contact Us Styles */
 .contact-us {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    color: #333;
-  }
-  
-  .contact-us h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #444;
-  }
-  
-  .contact-us p {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .success-message {
-    color: green;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  input, textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  textarea {
-    height: 100px;
-    resize: none;
-  }
-  
-  button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .contact-details {
-    margin-top: 30px;
-  }
-  
-  .contact-details h2 {
-    margin-bottom: 15px;
-  }
-  
-  .contact-details ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .contact-details li {
-    margin-bottom: 10px;
-  }
-  
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: var(--primary-text-color); /* Using variable */
+}
+
+.contact-us h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--secondary-text-color); /* Using variable */
+}
+
+.contact-us p {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.success-message {
+  color: var(--success-message-color); /* Using variable */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  background: var(--form-bg-color); /* Using variable */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px var(--box-shadow-color); /* Using variable */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 96%;
+  padding: 10px;
+  border: 1px solid var(--input-border-color); /* Using variable */
+  border-radius: 5px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--button-bg-color); /* Using variable */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg-color); /* Using variable */
+}
+
+.contact-details {
+  margin-top: 30px;
+}
+
+.contact-details h2 {
+  margin-bottom: 15px;
+}
+
+.contact-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-details li {
+  margin-bottom: 10px;
+}
+
+a {
+  color: var(--link-color); /* Using variable */
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover-color); /* Using variable */
+  text-decoration: underline;
+}

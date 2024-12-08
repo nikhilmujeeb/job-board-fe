@@ -1,22 +1,28 @@
+/* Auth Page Styling */
 .auth-page {
   width: 100%;
   max-width: 400px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Light background for light mode */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Auth Page Heading */
 .auth-page h1 {
   text-align: center;
   margin-bottom: 1.5rem;
+  color: #333; /* Dark text color */
 }
 
+/* Input Container */
 .input-container {
   margin-bottom: 1rem;
 }
 
+/* Input Fields */
 .input-container input {
   width: 93%;
   padding: 0.8rem;
@@ -26,6 +32,7 @@
   transition: border-color 0.3s ease;
 }
 
+/* Input focus styles */
 .input-container input:focus {
   outline: none;
   border-color: #444;
@@ -33,11 +40,12 @@
   border-radius: 4px; /* Adds rounded corners on focus */
 }
 
+/* Button Styles */
 button {
   width: 100%;
   padding: 0.8rem;
   font-size: 1rem;
-  background-color: #444; /* Gray background */
+  background-color: #444; /* Default gray background */
   color: white;
   border: none;
   border-radius: 4px;
@@ -45,14 +53,17 @@ button {
   transition: background-color 0.3s;
 }
 
+/* Disabled Button */
 button:disabled {
   background-color: #d3d3d3; /* Lighter gray when disabled */
 }
 
+/* Button Hover Effect */
 button:hover:not(:disabled) {
   background-color: #606060; /* Darker gray on hover */
 }
 
+/* Switch Form Button */
 .switch-form-btn {
   width: 100%;
   padding: 0.8rem;
@@ -68,6 +79,7 @@ button:hover:not(:disabled) {
   background-color: #b0b0b0; /* Slightly darker gray on hover */
 }
 
+/* Error Message Styling */
 .error-message {
   color: red;
   font-size: 0.9rem;
@@ -75,7 +87,51 @@ button:hover:not(:disabled) {
   text-align: center;
 }
 
+/* Dark Mode Styles */
+.app.dark .auth-page {
+  background-color: #333; /* Dark background for the form */
+  color: #fff; /* Light text */
+}
 
+.app.dark .auth-page h1 {
+  color: #fff; /* Light color for heading in dark mode */
+}
+
+.app.dark .input-container input {
+  background-color: #555; /* Darker background for inputs */
+  border-color: #666; /* Darker border */
+  color: #fff; /* Light text for input */
+}
+
+.app.dark .input-container input:focus {
+  border-color: #888; /* Darker border color when focused */
+  background-color: #444; /* Darker background on focus */
+}
+
+.app.dark button {
+  background-color: #777; /* Darker background for buttons */
+}
+
+.app.dark button:hover:not(:disabled) {
+  background-color: #999; /* Slightly lighter gray on hover */
+}
+
+.app.dark .switch-form-btn {
+  background-color: #555; /* Darker background for the switch form button */
+  color: #ddd; /* Light text */
+  border: 1px solid #666;
+}
+
+.app.dark .switch-form-btn:hover {
+  background-color: #444; /* Darker hover effect */
+}
+
+/* Dark Mode Error Message */
+.app.dark .error-message {
+  color: #f88; /* Lighter red for error messages in dark mode */
+}
+
+/* Responsive Design for smaller screens */
 @media (max-width: 480px) {
   .auth-page {
     width: 90%;
@@ -90,7 +146,7 @@ button:hover:not(:disabled) {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #fff; /* White background */
+  background-color: #fff; /* White background for select */
   color: #333; /* Dark text */
   transition: border-color 0.3s ease, background-color 0.3s ease;
   appearance: none; /* Remove default styling in some browsers */
@@ -98,20 +154,25 @@ button:hover:not(:disabled) {
   -moz-appearance: none; /* For Firefox */
 }
 
-.input-container select:focus {
+.app.dark .input-container select {
+  background-color: #444; /* Dark background for select */
+  border-color: #666; /* Darker border */
+  color: #ddd; /* Light text for select */
+}
+
+.app.dark .input-container select:focus {
   outline: none;
-  border-color: #444;
-  background-color: #f4f4f4; /* Light gray background on focus */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-color: #888;
+  background-color: #555; /* Darker background on focus */
 }
 
-.input-container select option {
-  background-color: #fff; /* White background for options */
-  color: #333; /* Dark text color for options */
+.app.dark .input-container select option {
+  background-color: #444; /* Dark background for options in dark mode */
+  color: #ddd; /* Light text for options */
 }
 
-.input-container select:hover {
-  border-color: #444; /* Darker border color on hover */
+.app.dark .input-container select:hover {
+  border-color: #888; /* Darker border color on hover */
 }
 
 /* Add a custom arrow to the select dropdown only */
@@ -130,3 +191,6 @@ button:hover:not(:disabled) {
   pointer-events: none;
 }
 
+.app.dark .input-container select::after {
+  color: #ddd; /* Light arrow color in dark mode */
+}

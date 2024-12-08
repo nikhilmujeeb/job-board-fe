@@ -1,3 +1,4 @@
+/* Base Global Styles */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +6,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Code Styling */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  background-color: var(--code-bg-color, #f4f4f4);
+  color: var(--code-text-color, #2a2a2a);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+/* Theme Variables for Light and Dark Modes */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #2a2a2a;
+  --code-bg-color: #f4f4f4;
+  --code-text-color: #2a2a2a;
+}
+
+.dark {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --code-bg-color: #1e1e1e;
+  --code-text-color: #dcdcdc;
 }

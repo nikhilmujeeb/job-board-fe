@@ -1,75 +1,105 @@
+/* Light Mode Variables */
+:root {
+  --primary-bg-color: #f4f4f4;
+  --primary-text-color: #333;
+  --input-border-color: #ccc;
+  --input-text-color: #333;
+  --button-bg-color: #007bff;
+  --button-hover-bg-color: #0056b3;
+  --button-disabled-bg-color: #aaa;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  --border-radius: 4px;
+  --skills-list-bg-color: #f9f9f9;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --primary-bg-color: #121212;
+  --primary-text-color: #e0e0e0;
+  --input-border-color: #444;
+  --input-text-color: #e0e0e0;
+  --button-bg-color: #357a38;
+  --button-hover-bg-color: #2f6b33;
+  --button-disabled-bg-color: #444;
+  --box-shadow-color: rgba(255, 255, 255, 0.1);
+  --border-radius: 4px;
+  --skills-list-bg-color: #333;
+}
+
+/* Form Styles */
 form {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  textarea,
-  input {
-    margin-bottom: 15px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 150px;
-  }
-  
-  button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
-  }
-  
-  input[type="url"] {
-    width: 100%;
-  }
-  
-  .phone-input-container {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .phone-input-container input {
-    width: 70%;
-    padding: 8px;
-  }
-  
-  .phone-input-container .country-code-select {
-    width: 30%;
-  }
-  
-  .skills-list ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .skills-list li {
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-  }
-  
-  .skills-list button {
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--primary-bg-color); /* Using variable */
+  border-radius: var(--border-radius); /* Using variable */
+  box-shadow: 0 2px 5px var(--box-shadow-color); /* Using variable */
+}
+
+textarea,
+input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--input-border-color); /* Using variable */
+  border-radius: var(--border-radius); /* Using variable */
+  color: var(--input-text-color); /* Using variable */
+}
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: var(--button-bg-color); /* Using variable */
+  color: white;
+  border: none;
+  border-radius: var(--border-radius); /* Using variable */
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: var(--button-disabled-bg-color); /* Using variable */
+  cursor: not-allowed;
+}
+
+input[type="url"] {
+  width: 100%;
+}
+
+.phone-input-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.phone-input-container input {
+  width: 70%;
+  padding: 8px;
+}
+
+.phone-input-container .country-code-select {
+  width: 30%;
+}
+
+.skills-list ul {
+  list-style-type: none;
+  padding: 0;
+  background-color: var(--skills-list-bg-color); /* Using variable */
+}
+
+.skills-list li {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.skills-list button {
+  margin-left: 10px;
+  cursor: pointer;
+}

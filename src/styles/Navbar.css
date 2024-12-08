@@ -1,15 +1,17 @@
 /* General Navbar Styles */
 body {
-  background-color: #f4f4f4; /* Off-white background */
+  background-color: #f4f4f4; /* Off-white background for light mode */
   color: #333; /* Dark grey text */
   position: sticky;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme change */
 }
 
 .navbar {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #ddd;
-  background-color: #f4f4f4; /* Off-white background */
+  background-color: #f4f4f4; /* Off-white background for light mode */
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .navbar-container {
@@ -40,12 +42,8 @@ body {
 .logo-text {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333; /* Dark grey text */
+  color: #333; /* Dark grey text for light mode */
   text-decoration: none;
-}
-
-.logo-link {
-  text-decoration: none; /* Remove underlining */
 }
 
 .navbar-links {
@@ -54,7 +52,7 @@ body {
 }
 
 .navbar-links a {
-  color: #333; /* Dark grey text */
+  color: #333; /* Dark grey text for links in light mode */
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -63,7 +61,7 @@ body {
 .more-options {
   cursor: pointer;
   font-weight: bold;
-  color: #333; /* Dark grey text */
+  color: #333; /* Dark grey text for more options */
 }
 
 /* Right Section (Auth + Theme Button) */
@@ -81,21 +79,26 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.theme-button:hover {
+  background-color: #444; /* Slightly lighter grey on hover */
 }
 
 /* Auth Buttons */
 .auth-button {
   text-decoration: none;
   padding: 0.5rem 1rem;
-  color: #fff; /* White text color */
-  background-color: #444; /* Blue background */
+  color: #fff; /* White text */
+  background-color: #444; /* Gray background */
   border: 1px solid #444;
   border-radius: 4px;
   font-weight: bold;
 }
 
 .auth-button:hover {
-  background-color: #000000; /* Darker blue on hover */
+  background-color: #000000; /* Darker grey on hover */
   border-color: #000000;
 }
 
@@ -105,7 +108,7 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 2rem;
-  background-color: #fafafa; /* Off-white background */
+  background-color: #fafafa; /* Light background for dropdown in light mode */
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   width: 100%;
@@ -137,7 +140,7 @@ body {
   justify-content: flex-end; /* Aligns to the right */
   margin-top: 1rem;
   margin-right: 50px;
-  grid-column: span 4; /* Ensure this spans across the dropdown's grid columns */
+  grid-column: span 4;
 }
 
 /* Responsive Adjustments */
@@ -153,7 +156,60 @@ body {
   }
 
   .login-signup {
-    justify-content: flex-end; /* Align to right in mobile view as well */
+    justify-content: flex-end;
     margin-top: 0.5rem;
   }
+}
+
+/* Dark Mode Styles */
+.app.dark body {
+  background-color: #333; /* Dark background for dark mode */
+  color: #fff; /* Light text for dark mode */
+}
+
+.app.dark .navbar {
+  background-color: #444; /* Dark background for navbar */
+  border-bottom: 1px solid #666; /* Darker border */
+}
+
+.app.dark .navbar-logo .logo-text,
+.app.dark .navbar-links a,
+.app.dark .more-options {
+  color: #fff; /* Light text for logo, links, and options */
+}
+
+.app.dark .theme-button {
+  background-color: #444; /* Dark background for theme button */
+  color: #fff;
+}
+
+.app.dark .auth-button {
+  background-color: #333; /* Darker background for auth buttons */
+  border: 1px solid #333;
+}
+
+.app.dark .auth-button:hover {
+  background-color: #000; /* Darker background on hover */
+  border-color: #000;
+}
+
+.app.dark .dropdown-expanded {
+  background-color: #555; /* Dark background for dropdown */
+  border-top: 1px solid #666; /* Dark border */
+}
+
+.app.dark .dropdown-column h3 {
+  color: #fff; /* Light text for headers in dropdown */
+}
+
+.app.dark .dropdown-column a {
+  color: #ddd; /* Lighter text for links */
+}
+
+.app.dark .dropdown-column a:hover {
+  text-decoration: underline;
+}
+
+.app.dark .login-signup {
+  color: #fff; /* Light text in login/signup section */
 }
