@@ -1,4 +1,3 @@
-/* Light Mode Variables */
 :root {
   --primary-bg-color: #f4f4f4;
   --primary-text-color: #333;
@@ -12,7 +11,6 @@
   --skills-list-bg-color: #f9f9f9;
 }
 
-/* Dark Mode Variables */
 .dark {
   --primary-bg-color: #121212;
   --primary-text-color: #e0e0e0;
@@ -26,16 +24,15 @@
   --skills-list-bg-color: #333;
 }
 
-/* Form Styles */
 form {
   display: flex;
   flex-direction: column;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: var(--primary-bg-color); /* Using variable */
-  border-radius: var(--border-radius); /* Using variable */
-  box-shadow: 0 2px 5px var(--box-shadow-color); /* Using variable */
+  background-color: var(--primary-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 5px var(--box-shadow-color);
 }
 
 textarea,
@@ -43,9 +40,9 @@ input {
   margin-bottom: 15px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid var(--input-border-color); /* Using variable */
-  border-radius: var(--border-radius); /* Using variable */
-  color: var(--input-text-color); /* Using variable */
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--border-radius);
+  color: var(--input-text-color);
 }
 
 textarea {
@@ -56,15 +53,15 @@ textarea {
 button {
   padding: 10px;
   font-size: 16px;
-  background-color: var(--button-bg-color); /* Using variable */
+  background-color: var(--button-bg-color);
   color: white;
   border: none;
-  border-radius: var(--border-radius); /* Using variable */
+  border-radius: var(--border-radius);
   cursor: pointer;
 }
 
 button:disabled {
-  background-color: var(--button-disabled-bg-color); /* Using variable */
+  background-color: var(--button-disabled-bg-color);
   cursor: not-allowed;
 }
 
@@ -90,7 +87,7 @@ input[type="url"] {
 .skills-list ul {
   list-style-type: none;
   padding: 0;
-  background-color: var(--skills-list-bg-color); /* Using variable */
+  background-color: var(--skills-list-bg-color);
 }
 
 .skills-list li {

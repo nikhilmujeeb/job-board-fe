@@ -1,11 +1,10 @@
-/* .terms-and-privacy Section */
 .terms-and-privacy {
   max-width: 900px;
   margin: 20px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme change */
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .terms-of-service, .privacy-policy {
@@ -15,11 +14,11 @@
 .terms-of-service h1, .privacy-policy h1 {
   font-size: 2em;
   margin-bottom: 15px;
-  color: #333; /* Dark grey text for headings */
+  color: #333;
 }
 
 .terms-of-service p, .privacy-policy p {
-  color: #555; /* Medium grey text for paragraphs */
+  color: #555;
 }
 
 .terms-of-service ul, .privacy-policy ul {
@@ -33,28 +32,27 @@
 .divider {
   border: none;
   height: 1px;
-  background: #ddd; /* Light grey divider */
+  background: #ddd; 
   margin: 30px 0;
 }
 
-/* Dark Mode Styles */
 .app.dark .terms-and-privacy {
-  background-color: #333; /* Dark background for the section */
-  color: #fff; /* White text for dark mode */
+  background-color: #333; 
+  color: #fff; 
 }
 
 .app.dark .terms-of-service h1, .app.dark .privacy-policy h1 {
-  color: #ddd; /* Lighter grey text for headings in dark mode */
+  color: #ddd;
 }
 
 .app.dark .terms-of-service p, .app.dark .privacy-policy p {
-  color: #ccc; /* Lighter grey text for paragraphs in dark mode */
+  color: #ccc; 
 }
 
 .app.dark .terms-of-service ul, .app.dark .privacy-policy ul {
-  color: #ccc; /* Light grey text for lists */
+  color: #ccc; 
 }
 
 .app.dark .divider {
-  background: #555; /* Darker divider for dark mode */
+  background: #555; 
 }

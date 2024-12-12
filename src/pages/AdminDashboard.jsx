@@ -9,11 +9,10 @@ const AdminDashboard = () => {
   const [userList, setUserList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState({ type: "", content: "" });
-  const [expandedJobId, setExpandedJobId] = useState(null); // Track which job is expanded
+  const [expandedJobId, setExpandedJobId] = useState(null);
 
   const navigate = useNavigate();
 
-  // Admin authentication check
   useEffect(() => {
     const checkAdmin = async () => {
       const token = localStorage.getItem("authToken");
@@ -56,7 +55,6 @@ const AdminDashboard = () => {
     checkAdmin();
   }, [navigate]);
 
-  // Fetch pending job listings
   useEffect(() => {
     const fetchPendingJobs = async () => {
       const token = localStorage.getItem("authToken");
@@ -90,7 +88,6 @@ const AdminDashboard = () => {
     fetchPendingJobs();
   }, [navigate]);
 
-  // Fetch all users
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem("authToken");
@@ -120,7 +117,6 @@ const AdminDashboard = () => {
     fetchUsers();
   }, [navigate]);
 
-  // Approve a job listing
   const approveJob = async (jobId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -156,7 +152,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Toggle job description expand/collapse
   const toggleDescription = (jobId) => {
     setExpandedJobId((prevId) => (prevId === jobId ? null : jobId));
   };

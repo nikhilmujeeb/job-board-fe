@@ -21,11 +21,9 @@ const ContactUs = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simulate form submission
     console.log("Contact Form Submitted:", formData);
     setSubmitted(true);
 
-    // Reset the form
     setFormData({
       name: "",
       email: "",

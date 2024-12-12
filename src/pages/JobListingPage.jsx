@@ -152,7 +152,7 @@ const JobListingPage = () => {
               <p><strong>Location:</strong> {job.location}</p>
               <p><strong>Salary Range:</strong> {job.salaryRange}</p>
               <p><strong>Job Type:</strong> {job.jobType}</p>
-              <p><strong>Category:</strong> {job.category}</p> {/* Display category */}
+              <p><strong>Category:</strong> {job.category}</p>
               <button onClick={() => handleApplyClick(job)} disabled={isApplying}>
                 {isApplying ? 'Applying...' : 'Apply'}
               </button>
@@ -173,7 +173,7 @@ const JobListingPage = () => {
             <p><strong>Location:</strong> {selectedJob.location}</p>
             <p><strong>Salary Range:</strong> {selectedJob.salaryRange}</p>
             <p><strong>Job Type:</strong> {selectedJob.jobType}</p>
-            <p><strong>Category:</strong> {selectedJob.category}</p> {/* Display category */}
+            <p><strong>Category:</strong> {selectedJob.category}</p> 
             <p><strong>Description:</strong> {selectedJob.description}</p>
             <p><strong>Requirements:</strong> {selectedJob.requirements}</p>
             <p><strong>Contact Email:</strong> {selectedJob.contact}</p>

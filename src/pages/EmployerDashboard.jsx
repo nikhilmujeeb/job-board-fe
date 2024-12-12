@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode"; // Correct import
+import {jwtDecode} from "jwt-decode"; 
 import "../styles/employerDashboard.css";
 
 const EmployerDashboard = () => {
@@ -30,7 +30,6 @@ const EmployerDashboard = () => {
           return;
         }
   
-        // Fetch posted jobs
         setLoadingJobs(true);
         const jobResponse = await axios.get(
           "https://job-board-be-vk4x.onrender.com/api/job/employer-jobs",
@@ -41,21 +40,19 @@ const EmployerDashboard = () => {
         setPostedJobs(jobResponse.data.jobs || []);
         setLoadingJobs(false);
   
-        // Fetch profiles (fixed the endpoint URL)
         setLoadingProfiles(true);
         const profileResponse = await axios.get(
-          "https://job-board-be-vk4x.onrender.com/api/id/profiles", // Fixed the endpoint URL
+          "https://job-board-be-vk4x.onrender.com/api/id/profiles",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log("Profile Response:", profileResponse.data); // Log API response
+        console.log("Profile Response:", profileResponse.data); 
   
-        // Update state based on the response structure
         if (Array.isArray(profileResponse.data)) {
-          setProfiles(profileResponse.data); // If it's an array directly
+          setProfiles(profileResponse.data); 
         } else {
-          setProfiles(profileResponse.data.profiles || []); // If profiles are nested inside a 'profiles' key
+          setProfiles(profileResponse.data.profiles || []); 
         }
   
         setLoadingProfiles(false);

@@ -1,4 +1,3 @@
-/* Global Reset and Styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -15,24 +14,20 @@ body {
   padding: 2rem;
 }
 
-/* Theme-specific styles for Light and Dark modes */
 .app {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Light Theme */
 .app.light {
   background-color: #fff;
   color: #000;
 }
 
-/* Dark Theme */
 .app.dark {
   background-color: #121212;
   color: #fff;
 }
 
-/* Footer */
 .footer {
   background-color: #282c34;
   color: white;
@@ -51,7 +46,6 @@ footer {
   border-top: 1px solid #ddd;
 }
 
-/* Content Sections */
 .home-page {
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -63,7 +57,6 @@ footer {
   text-align: center;
 }
 
-/* Dark mode updates */
 .app.dark .banner {
   background: #333;
 }
@@ -73,7 +66,6 @@ footer {
   margin-bottom: 20px;
 }
 
-/* Button Styles */
 button {
   padding: 0.5rem 1rem;
   border: none;
@@ -84,7 +76,6 @@ button:hover {
   opacity: 0.8;
 }
 
-/* CTA Sections */
 .cta-section {
   text-align: center;
   padding: 40px 20px;
@@ -95,7 +86,6 @@ button:hover {
   margin-bottom: 20px;
 }
 
-/* Footer and other sections */
 .footer-sections {
   display: flex;
   flex-wrap: wrap;
@@ -119,7 +109,6 @@ button:hover {
   text-decoration: underline;
 }
 
-/* Dark theme footer and links */
 .app.dark footer {
   background-color: #121212;
   color: #fff;
@@ -133,7 +122,6 @@ button:hover {
   color: #fff;
 }
 
-/* Forms */
 .subscribe-form input {
   padding: 10px;
   width: 300px;
@@ -163,7 +151,6 @@ button:hover {
   text-decoration: underline;
 }
 
-/* Footer Bottom */
 .footer-bottom {
   text-align: center;
   margin-top: 20px;
@@ -179,7 +166,6 @@ button:hover {
   color: #777;
 }
 
-/* Dark Mode for Footer Bottom */
 .app.dark .footer-bottom p {
   color: #ccc;
 }

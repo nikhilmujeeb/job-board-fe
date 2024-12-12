@@ -1,4 +1,3 @@
-/* Default styles for light mode */
 :root {
   --primary-bg-color: #f5f5f5;
   --secondary-bg-color: #e0e0e0;
@@ -15,7 +14,6 @@
   --box-shadow-color: rgba(0, 0, 0, 0.15);
 }
 
-/* Dark mode overrides */
 body.dark {
   --primary-bg-color: #181818;
   --secondary-bg-color: #202020;
@@ -32,7 +30,6 @@ body.dark {
   --box-shadow-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Apply colors to elements */
 body {
   background-color: var(--primary-bg-color);
   color: var(--text-color);
@@ -42,21 +39,18 @@ body {
   line-height: 1.6;
 }
 
-/* Header styling */
 h1, h2, h3, h4, h5, h6 {
   color: var(--heading-color);
   margin: 0 0 10px;
   font-weight: bold;
 }
 
-/* Paragraph styling */
 p {
   color: var(--paragraph-color);
   font-size: 1rem;
   margin-bottom: 15px;
 }
 
-/* Button and link styles */
 button, .post-job-link button {
   background-color: var(--button-bg-color);
   color: var(--text-color);
@@ -70,7 +64,7 @@ button, .post-job-link button {
 
 button:hover, .post-job-link button:hover {
   background-color: var(--button-hover-bg-color);
-  transform: scale(1.05); /* Adds a slight hover effect */
+  transform: scale(1.05); 
 }
 
 a {
@@ -99,7 +93,6 @@ a:hover {
   color: var(--paragraph-color);
 }
 
-/* Delete Button */
 .delete-btn {
   position: absolute;
   top: 10px;
@@ -123,7 +116,6 @@ a:hover {
   background-color: rgba(255, 0, 0, 0.2);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   body {
     padding: 10px;

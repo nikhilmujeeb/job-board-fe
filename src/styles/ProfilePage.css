@@ -1,24 +1,23 @@
-/* src/pages/ProfilePage.css */
 .profile-page {
   padding: 20px;
-  background-color: #f4f4f4; /* Light background for profile page */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme change */
+  background-color: #f4f4f4; 
+  transition: background-color 0.3s, color 0.3s; 
 }
 
 .profile-page h1 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #333; /* Dark grey text for light mode */
+  color: #333; 
 }
 
 .profile-page h2 {
   font-size: 1.5rem;
-  color: #333; /* Dark grey text for sub-headings */
+  color: #333; 
 }
 
 .profile-page p {
   font-size: 1rem;
-  color: #555; /* Slightly lighter grey text for paragraphs */
+  color: #555; 
 }
 
 .profile-page ul {
@@ -28,11 +27,11 @@
 
 .profile-page li {
   margin-bottom: 10px;
-  color: #333; /* Dark grey text for list items */
+  color: #333; 
 }
 
 .profile-page a {
-  color: #0077b5; /* Blue link color */
+  color: #0077b5; 
   text-decoration: none;
 }
 
@@ -40,20 +39,19 @@
   text-decoration: underline;
 }
 
-/* Dark Mode Styles */
 .app.dark .profile-page {
-  background-color: #333; /* Dark background for profile page */
+  background-color: #333; 
 }
 
 .app.dark .profile-page h1,
 .app.dark .profile-page h2,
 .app.dark .profile-page p,
 .app.dark .profile-page li {
-  color: #fff; /* White text for dark mode */
+  color: #fff; 
 }
 
 .app.dark .profile-page a {
-  color: #00bcd4; /* Lighter blue link color for dark mode */
+  color: #00bcd4; 
 }
 
 .app.dark .profile-page a:hover {

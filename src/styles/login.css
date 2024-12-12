@@ -1,28 +1,24 @@
-/* Auth Page Styling */
 .auth-page {
   width: 100%;
   max-width: 400px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f9f9f9; /* Light background for light mode */
+  background-color: #f9f9f9; 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Auth Page Heading */
 .auth-page h1 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #333; /* Dark text color */
+  color: #333; 
 }
 
-/* Input Container */
 .input-container {
   margin-bottom: 1rem;
 }
 
-/* Input Fields */
 .input-container input {
   width: 93%;
   padding: 0.8rem;
@@ -32,20 +28,18 @@
   transition: border-color 0.3s ease;
 }
 
-/* Input focus styles */
 .input-container input:focus {
   outline: none;
   border-color: #444;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  border-radius: 4px; /* Adds rounded corners on focus */
+  border-radius: 4px; 
 }
 
-/* Button Styles */
 button {
   width: 100%;
   padding: 0.8rem;
   font-size: 1rem;
-  background-color: #444; /* Default gray background */
+  background-color: #444; 
   color: white;
   border: none;
   border-radius: 4px;
@@ -53,33 +47,29 @@ button {
   transition: background-color 0.3s;
 }
 
-/* Disabled Button */
 button:disabled {
-  background-color: #d3d3d3; /* Lighter gray when disabled */
+  background-color: #d3d3d3; 
 }
 
-/* Button Hover Effect */
 button:hover:not(:disabled) {
-  background-color: #606060; /* Darker gray on hover */
+  background-color: #606060; 
 }
 
-/* Switch Form Button */
 .switch-form-btn {
   width: 100%;
   padding: 0.8rem;
   margin-top: 1rem;
-  background-color: #d3d3d3; /* Light gray background */
-  color: #444; /* Darker gray text */
+  background-color: #d3d3d3; 
+  color: #444; 
   border: 1px solid #808080;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .switch-form-btn:hover {
-  background-color: #b0b0b0; /* Slightly darker gray on hover */
+  background-color: #b0b0b0; 
 }
 
-/* Error Message Styling */
 .error-message {
   color: red;
   font-size: 0.9rem;
@@ -87,110 +77,105 @@ button:hover:not(:disabled) {
   text-align: center;
 }
 
-/* Dark Mode Styles */
 .app.dark .auth-page {
-  background-color: #333; /* Dark background for the form */
-  color: #fff; /* Light text */
+  background-color: #333; 
+  color: #fff; 
 }
 
 .app.dark .auth-page h1 {
-  color: #fff; /* Light color for heading in dark mode */
+  color: #fff; 
 }
 
 .app.dark .input-container input {
-  background-color: #555; /* Darker background for inputs */
-  border-color: #666; /* Darker border */
-  color: #fff; /* Light text for input */
+  background-color: #555; 
+  border-color: #666; 
+  color: #fff; 
 }
 
 .app.dark .input-container input:focus {
-  border-color: #888; /* Darker border color when focused */
-  background-color: #444; /* Darker background on focus */
+  border-color: #888; 
+  background-color: #444; 
 }
 
 .app.dark button {
-  background-color: #777; /* Darker background for buttons */
+  background-color: #777; 
 }
 
 .app.dark button:hover:not(:disabled) {
-  background-color: #999; /* Slightly lighter gray on hover */
+  background-color: #999;
 }
 
 .app.dark .switch-form-btn {
-  background-color: #555; /* Darker background for the switch form button */
-  color: #ddd; /* Light text */
+  background-color: #555; 
+  color: #ddd; 
   border: 1px solid #666;
 }
 
 .app.dark .switch-form-btn:hover {
-  background-color: #444; /* Darker hover effect */
+  background-color: #444; 
 }
 
-/* Dark Mode Error Message */
 .app.dark .error-message {
-  color: #f88; /* Lighter red for error messages in dark mode */
+  color: #f88; 
 }
 
-/* Responsive Design for smaller screens */
 @media (max-width: 480px) {
   .auth-page {
     width: 90%;
-    padding: 2rem; /* Increased padding for better mobile display */
+    padding: 2rem; 
   }
 }
 
-/* Styling for select element */
 .input-container select {
   width: 100%;
   padding: 0.8rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #fff; /* White background for select */
-  color: #333; /* Dark text */
+  background-color: #fff; 
+  color: #333; 
   transition: border-color 0.3s ease, background-color 0.3s ease;
-  appearance: none; /* Remove default styling in some browsers */
-  -webkit-appearance: none; /* For Safari */
-  -moz-appearance: none; /* For Firefox */
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none; 
 }
 
 .app.dark .input-container select {
-  background-color: #444; /* Dark background for select */
-  border-color: #666; /* Darker border */
-  color: #ddd; /* Light text for select */
+  background-color: #444; 
+  border-color: #666; 
+  color: #ddd; 
 }
 
 .app.dark .input-container select:focus {
   outline: none;
   border-color: #888;
-  background-color: #555; /* Darker background on focus */
+  background-color: #555; 
 }
 
 .app.dark .input-container select option {
-  background-color: #444; /* Dark background for options in dark mode */
-  color: #ddd; /* Light text for options */
+  background-color: #444; 
+  color: #ddd; 
 }
 
 .app.dark .input-container select:hover {
-  border-color: #888; /* Darker border color on hover */
+  border-color: #888; 
 }
 
-/* Add a custom arrow to the select dropdown only */
 .input-container select {
   position: relative;
 }
 
 .input-container select::after {
-  content: '\25BC'; /* Unicode for the down arrow */
+  content: '\25BC'; 
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.2rem;
-  color: #444; /* Dark arrow color */
+  color: #444; 
   pointer-events: none;
 }
 
 .app.dark .input-container select::after {
-  color: #ddd; /* Light arrow color in dark mode */
+  color: #ddd; 
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; // Corrected import
+import { jwtDecode } from "jwt-decode"; 
 import { login, signup } from "../services/api";
 import "../styles/login.css";
 
@@ -31,39 +31,35 @@ const LoginPage = () => {
         return;
       }
 
-      // Check if the response contains the token
       const token = response?.token;
       if (!token) {
         throw new Error("Token missing from response.");
       }
 
-      // Decode and validate token
       const decoded = jwtDecode(token);
-      console.log("Decoded token:", decoded);  // Log the token to check its structure
+      console.log("Decoded token:", decoded); 
       localStorage.setItem("authToken", token);
       localStorage.setItem("role", decoded.role);
-      localStorage.setItem("userId", decoded.userId);  // Ensure you're storing the userId      
+      localStorage.setItem("userId", decoded.userId);      
 
       if (decoded.exp * 1000 < Date.now()) {
         throw new Error("Session expired. Please login again.");
       }
 
-      // Save token and role to localStorage
       localStorage.setItem("authToken", token);
       localStorage.setItem("role", decoded.role);
 
-      console.log("Token stored in localStorage:", localStorage.getItem('authToken'));  // Confirm token is saved
+      console.log("Token stored in localStorage:", localStorage.getItem('authToken')); 
 
       alert("Login successful!");
 
-      // Redirect based on role or fallback to home
       const redirectPath = location.state?.from || {
         admin: "/admin",
         employer: "/employer",
         user: "/user-dashboard",
       }[decoded.role] || "/";
 
-      console.log("Redirecting to:", redirectPath); // Log the redirect path
+      console.log("Redirecting to:", redirectPath);
 
       navigate(redirectPath, { replace: true });
     } catch (err) {

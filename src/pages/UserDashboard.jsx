@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode'; // Correct named import
+import { jwtDecode } from 'jwt-decode';
 import '../styles/user-dashboard.css';
 
 const UserDashboard = () => {
@@ -13,17 +13,16 @@ const UserDashboard = () => {
 
   useEffect(() => {
     const fetchProfileAndJobs = async () => {
-      const token = localStorage.getItem('authToken'); // Get token from localStorage
+      const token = localStorage.getItem('authToken'); 
   
       if (!token) {
-        navigate('/login'); // Redirect to login if the user is not logged in
+        navigate('/login'); 
         return;
       }
   
-      // Decode the token and extract the userId
       const decoded = jwtDecode(token);
-      const userId = decoded.userId; // Ensure this key matches the actual key in your token
-      console.log("Decoded user ID:", userId);  // Log to verify the user ID
+      const userId = decoded.userId; 
+      console.log("Decoded user ID:", userId); 
   
       if (!userId) {
         console.error("User ID is missing from the token.");
@@ -33,20 +32,18 @@ const UserDashboard = () => {
       }
   
       try {
-        // Fetch profile data using the user ID
         const profileResponse = await axios.get(
           `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
-          { headers: { Authorization: `Bearer ${token}` } } // Ensure this is correct
+          { headers: { Authorization: `Bearer ${token}` } } 
         );
-        console.log("Profile data fetched:", profileResponse);  // Log to verify profile data
-        setProfile(profileResponse.data);  // Update to set the full response
+        console.log("Profile data fetched:", profileResponse); 
+        setProfile(profileResponse.data);  
   
-        // Fetch applied jobs
         const jobsResponse = await axios.get(
           'https://job-board-be-vk4x.onrender.com/api/user/getJobsApplied',
-          { headers: { Authorization: `Bearer ${token}` } } // Ensure this is correct
+          { headers: { Authorization: `Bearer ${token}` } } 
         );
-        console.log("Applied Jobs:", jobsResponse.data.jobs); // Log jobs to verify
+        console.log("Applied Jobs:", jobsResponse.data.jobs); 
         setAppliedJobs(jobsResponse.data.jobs);
   
       } catch (err) {
@@ -138,7 +135,7 @@ const UserDashboard = () => {
   <ul>
     {appliedJobs.map((job, index) => (
       <li key={index}>
-        <strong>{job.title}</strong> at {job.company} <br />  {/* Display company directly */}
+        <strong>{job.title}</strong> at {job.company} <br />
         <span>{job.location}</span>
       </li>
     ))}

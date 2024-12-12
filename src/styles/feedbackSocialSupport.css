@@ -1,4 +1,3 @@
-/* Light Mode Variables */
 :root {
   --primary-bg-color: #f9f9f9;
   --secondary-bg-color: #fff;
@@ -11,7 +10,6 @@
   --link-hover-color: #005bb5;
 }
 
-/* Dark Mode Variables */
 .dark {
   --primary-bg-color: #121212;
   --secondary-bg-color: #333;
@@ -24,31 +22,28 @@
   --link-hover-color: #66b3ff;
 }
 
-/* General Page Styles */
 .page-container {
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: var(--primary-bg-color); /* Using variable */
-  color: var(--text-color); /* Using variable */
+  background-color: var(--primary-bg-color); 
+  color: var(--text-color); 
   border-radius: 8px;
-  box-shadow: 0 4px 8px var(--shadow-color); /* Using variable */
+  box-shadow: 0 4px 8px var(--shadow-color); 
 }
 
-/* Section Headers */
 .page-container h1 {
   font-size: 2.5em;
   margin-bottom: 15px;
-  color: var(--text-color); /* Using variable */
+  color: var(--text-color); 
   text-align: center;
-  border-bottom: 2px solid var(--button-bg-color); /* Using variable */
+  border-bottom: 2px solid var(--button-bg-color); 
   display: inline-block;
   padding-bottom: 5px;
 }
 
-/* Feedback Section */
 .feedback-section form {
   max-width: 700px;
   margin: 0 auto;
@@ -58,7 +53,7 @@
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: var(--text-color); /* Using variable */
+  color: var(--text-color); 
 }
 
 .feedback-section input,
@@ -66,32 +61,31 @@
   width: 97%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid var(--border-color); /* Using variable */
-  border-radius: var(--border-radius); /* Using variable */
+  border: 1px solid var(--border-color); 
+  border-radius: var(--border-radius); 
   font-size: 1em;
-  color: var(--text-color); /* Using variable */
-  background-color: var(--secondary-bg-color); /* Using variable */
+  color: var(--text-color); 
+  background-color: var(--secondary-bg-color); 
 }
 
 .feedback-section button {
-  background-color: var(--button-bg-color); /* Using variable */
+  background-color: var(--button-bg-color); 
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: var(--border-radius); /* Using variable */
+  border-radius: var(--border-radius); 
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .feedback-section button:hover {
-  background-color: var(--button-hover-bg-color); /* Using variable */
+  background-color: var(--button-hover-bg-color); 
 }
 
-/* Social Media Section */
 .social-media-section h1 {
   font-size: 2rem;
-  color: var(--text-color); /* Using variable */
+  color: var(--text-color); 
   margin-bottom: 20px;
 }
 
@@ -104,20 +98,19 @@
 .social-media-icons a {
   text-decoration: none;
   font-size: 2.5rem;
-  color: var(--text-color); /* Using variable */
+  color: var(--text-color); 
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .social-media-icons a:hover {
-  color: var(--link-hover-color); /* Using variable */
+  color: var(--link-hover-color); 
   transform: scale(1.2);
 }
 
 .social-media-icons i {
-  pointer-events: none; /* Prevent hovering on the icon itself */
+  pointer-events: none; 
 }
 
-/* Support Section */
 .support-section {
   text-align: center;
   margin-top: 30px;
@@ -125,21 +118,21 @@
 
 .support-section p {
   font-size: 1.2em;
-  color: var(--text-color); /* Using variable */
+  color: var(--text-color); 
 }
 
 .support-section a {
   display: inline-block;
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: var(--button-bg-color); /* Using variable */
+  background-color: var(--button-bg-color); 
   color: white;
   text-decoration: none;
-  border-radius: var(--border-radius); /* Using variable */
+  border-radius: var(--border-radius); 
   font-size: 1em;
   transition: background-color 0.3s;
 }
 
 .support-section a:hover {
-  background-color: var(--button-hover-bg-color); /* Using variable */
+  background-color: var(--button-hover-bg-color); 
 }

@@ -1,40 +1,37 @@
-/* General Styles for Help Center */
 .help-center {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  color: var(--text-color); /* Using variable for text color */
-  background-color: var(--primary-bg-color); /* Using variable for background color */
+  color: var(--text-color); 
+  background-color: var(--primary-bg-color); 
   border-radius: 8px;
-  box-shadow: 0 4px 8px var(--shadow-color); /* Using variable for shadow */
+  box-shadow: 0 4px 8px var(--shadow-color); 
 }
 
-/* Section Headers */
 .help-center h1 {
   text-align: center;
-  color: var(--text-color); /* Using variable for text color */
+  color: var(--text-color); 
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
 
 .help-center h2 {
   font-size: 1.5rem;
-  color: var(--text-color); /* Using variable for text color */
+  color: var(--text-color); 
   margin-bottom: 10px;
 }
 
-/* FAQ and Troubleshooting Sections */
 .faq h3, .troubleshooting h3 {
   font-size: 1.2rem;
   margin-top: 15px;
-  color: var(--text-color); /* Using variable for text color */
+  color: var(--text-color); 
 }
 
 .faq p, .troubleshooting p {
   margin: 5px 0 15px;
-  color: var(--text-color); /* Using variable for text color */
+  color: var(--text-color); 
 }
 
 ul {
@@ -47,16 +44,15 @@ ul li {
 }
 
 a {
-  color: var(--button-bg-color); /* Using variable for link color */
+  color: var(--button-bg-color); 
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
-  color: var(--link-hover-color); /* Using variable for link hover color */
+  color: var(--link-hover-color); 
 }
 
-/* Light Mode Variables */
 :root {
   --primary-bg-color: #f9f9f9;
   --text-color: #333;
@@ -65,7 +61,6 @@ a:hover {
   --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Dark Mode Variables */
 .dark {
   --primary-bg-color: #121212;
   --text-color: #e0e0e0;
@@ -74,7 +69,6 @@ a:hover {
   --shadow-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
   .help-center {
     padding: 15px;

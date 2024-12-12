@@ -155,17 +155,16 @@ const ProfileCreatePage = () => {
 
   const handleSkillsChange = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form submission when Enter is pressed
+      e.preventDefault(); 
   
       if (e.target.value.trim() !== '') {
-        // Split the input by commas and add each skill to the skills list
         const newSkills = e.target.value.split(',').map((skill) => skill.trim());
         
         setProfileData((prevData) => ({
           ...prevData,
-          skills: [...prevData.skills, ...newSkills], // Add the new skills to the existing list
+          skills: [...prevData.skills, ...newSkills], 
         }));
-        e.target.value = ''; // Clear the input field
+        e.target.value = '';
       }
     }
   };  
@@ -209,25 +208,25 @@ const ProfileCreatePage = () => {
       return;
     }
 
-    const token = localStorage.getItem('authToken')?.trim(); // Ensure the token is retrieved correctly
+    const token = localStorage.getItem('authToken')?.trim(); 
     const payload = {
-      ...profileData, // Ensure this contains all required fields
+      ...profileData, 
     };
 
     try {
       const response = await axios.post(
-        'https://job-board-be-vk4x.onrender.com/api/id/profile', // Correct endpoint
+        'https://job-board-be-vk4x.onrender.com/api/id/profile', 
         payload,
         {
           headers: {
-            'Content-Type': 'application/json', // Ensure proper Content-Type
-            Authorization: `Bearer ${token}`, // Include the token for authentication
+            'Content-Type': 'application/json', 
+            Authorization: `Bearer ${token}`, 
           },
         }
       );
 
       console.log('Profile saved successfully:', response.data);
-      navigate('/'); // Redirect to profile page
+      navigate('/'); 
     } catch (error) {
       console.error('Error saving profile:', error.response || error.message);
       alert('Failed to update profile. Please try again.');
@@ -322,7 +321,7 @@ const ProfileCreatePage = () => {
           <label>Skills</label>
           <input
             type="text"
-            onKeyPress={handleSkillsChange} // Calls the function when Enter is pressed
+            onKeyPress={handleSkillsChange} 
             placeholder="Press Enter to add skill"
            />
           <div className="skills-list">

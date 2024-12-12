@@ -9,11 +9,10 @@ const HomePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Fetch job listings from backend API
     axios
       .get('https://job-board-be-vk4x.onrender.com/api/job')
       .then((response) => {
-        setJobListings(response.data.slice(0, 3)); // Display only 3 job listings
+        setJobListings(response.data.slice(0, 3)); 
         setIsLoading(false);
       })
       .catch((err) => {
@@ -21,14 +20,12 @@ const HomePage = () => {
         setIsLoading(false);
       });
 
-    // Check if the user is logged in (you may use localStorage/sessionStorage or a global state)
     const token = localStorage.getItem('authToken');
     if (token) {
-      setIsLoggedIn(true); // User is logged in
+      setIsLoggedIn(true);
     }
   }, []);
 
-  // Handle apply job request
   const handleApply = async (jobId) => {
     if (!isLoggedIn) {
       alert('You need to be logged in to apply for jobs');
