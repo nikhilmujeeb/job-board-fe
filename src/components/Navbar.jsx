@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.clear(); // Clear all tokens and roles
+    localStorage.clear();
     setIsAuthenticated(false);
     alert("Logged out successfully.");
     navigate("/login");
@@ -53,8 +53,8 @@ const Navbar = () => {
           <div className="dropdown-column">
             <h3>Explore Opportunities</h3>
             <Link to="/job-listings">Find Jobs</Link>
-            <Link to="/create-profile">Create Profile</Link>
-            <Link to="/dashboard">DashBoard</Link>
+            <Link to="/create-profile">Create/Update Profile</Link>
+            <Link to="/dashboard">Dashboard</Link>
           </div>
           <div className="dropdown-column">
             <h3>User Resources</h3>
