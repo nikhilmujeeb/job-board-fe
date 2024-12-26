@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -25,7 +25,6 @@ import UserDashboard from './pages/UserDashboard';
 
 const App = () => (
   <ThemeProvider>
-    <Router>
       <MainLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -56,7 +55,6 @@ const App = () => (
           />
         </Routes>
       </MainLayout>
-    </Router>
   </ThemeProvider>
 );
 
