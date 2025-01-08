@@ -19,7 +19,6 @@ import Feedback from './pages/Feedback';
 import SocialMedia from './pages/SocialMedia';
 import Support from './pages/Support';
 import TermsAndPrivacy from './pages/TermsOfService';
-import JobSeekerDashboard from "./pages/JobSeekerDashboard";
 import EmployerDashboard from "./pages/EmployerDashboard";
 import UserDashboard from './pages/UserDashboard'; 
 
@@ -42,7 +41,6 @@ const App = () => (
           <Route path="/social-media" element={<SocialMedia />} />
           <Route path="/support" element={<Support />} />
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
-          <Route path="/user" element={<JobSeekerDashboard />} />
           <Route path="/employer" element={<EmployerDashboard />} />
           <Route path="/user-dashboard" element={<UserDashboard />} /> 
           <Route

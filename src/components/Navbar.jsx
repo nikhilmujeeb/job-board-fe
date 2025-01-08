@@ -5,9 +5,19 @@ import "../styles/Navbar.css";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("authToken"));
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("authToken")
+  );
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const authCheckInterval = setInterval(() => {
+      setIsAuthenticated(!!localStorage.getItem("authToken"));
+    }, 1000);
+
+    return () => clearInterval(authCheckInterval);
+  }, []);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -17,19 +27,16 @@ const Navbar = () => {
   };
 
   const toggleNavbar = () => {
-    setIsExpanded(!isExpanded);
+    setIsExpanded((prev) => !prev);
   };
 
   return (
     <nav className={`navbar ${theme}`}>
       <div className="navbar-container">
-        {/* Logo */}
         <div className="navbar-left">
           <Link to="/" className="logo-link">
             <span className="logo-text">JOB SEEKER</span>
           </Link>
-
-          {/* Navbar Links */}
           <div className="navbar-links">
             <Link to="/job-listings">Job Listings</Link>
             <Link to="/dashboard">Dashboard</Link>
@@ -38,16 +45,21 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-
-        {/* Theme Toggle and Auth Links */}
         <div className="navbar-right">
           <button className="theme-button" onClick={toggleTheme}>
             {theme === "light" ? "Dark" : "Light"} Mode
           </button>
+          {isAuthenticated ? (
+            <button onClick={handleLogout} className="auth-button">
+              Logout
+            </button>
+          ) : (
+            <button to="/login" className="auth-button">
+              Login
+            </button>
+          )}
         </div>
       </div>
-
-      {/* Dropdown Menu */}
       {isExpanded && (
         <div className="dropdown-expanded">
           <div className="dropdown-column">
@@ -66,24 +78,13 @@ const Navbar = () => {
             <h3>Company Information</h3>
             <Link to="/about-us">About Us</Link>
             <Link to="/careers">Careers</Link>
-            <Link to="/terms-and-privacy">Terms of Service & Privacy Policy</Link>
+            <Link to="/terms-and-privacy">Terms & Privacy</Link>
           </div>
           <div className="dropdown-column">
             <h3>Stay Connected</h3>
             <Link to="/social-media">Social Media</Link>
             <Link to="/feedback">Feedback</Link>
             <Link to="/support">Support</Link>
-          </div>
-          <div>
-          {isAuthenticated ? (
-            <button onClick={handleLogout} className="auth-button logout-button">
-              Logout
-            </button>
-          ) : (
-            <Link to="/login" className="auth-button login-button">
-              Login
-            </Link>
-          )}
           </div>
         </div>
       )}
