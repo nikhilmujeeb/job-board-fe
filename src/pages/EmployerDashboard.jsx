@@ -77,24 +77,41 @@ const EmployerDashboard = () => {
           navigate("/login");
           return;
         }
-
-        await axios.delete(
+  
+        console.log("Token:", token);
+        console.log("Job ID:", jobId);
+  
+        const response = await axios.delete(
           `https://job-board-be-vk4x.onrender.com/api/job/${jobId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-
-        setPostedJobs((prevJobs) =>
-          prevJobs.filter((job) => job._id !== jobId)
-        );
-        alert("Job post deleted successfully.");
+  
+        if (response.status === 200) {
+          setPostedJobs((prevJobs) =>
+            prevJobs.filter((job) => job._id !== jobId)
+          );
+          alert("Job post deleted successfully.");
+        } else {
+          alert("Failed to delete job post. Please try again later.");
+        }
       } catch (error) {
         console.error("Error deleting job:", error);
-        alert("Failed to delete job post. Please try again later.");
+  
+        if (error.response?.status === 403) {
+          alert(
+            "You do not have permission to delete this job post. Please contact the admin."
+          );
+        } else if (error.response?.status === 401) {
+          alert("Session expired. Please log in again.");
+          navigate("/login");
+        } else {
+          alert("Failed to delete job post. Please try again later.");
+        }
       }
     }
-  };
+  };  
 
   return (
     <div className="employer-dashboard">
