@@ -202,27 +202,26 @@ const AdminDashboard = () => {
                 <td>{job.contact}</td>
                 <td>{job.jobType}</td>
                 <td>
-  <div
-    className={`description ${
-      expandedJobId === job._id ? "expanded" : ""
-    }`}
-  >
-    <div
-      className={`text-preview ${
-        expandedJobId === job._id ? "expanded" : ""
-      }`}
-    >
-      {job.description}
-    </div>
-    <button
-      className="read-more"
-      onClick={() => toggleDescription(job._id)}
-    >
-      {expandedJobId === job._id ? "Show Less" : "Read More"}
-    </button>
-  </div>
-</td>
-
+                  <div
+                    className={`description ${
+                      expandedJobId === job._id ? "expanded" : ""
+                    }`}
+                  >
+                    <div
+                      className={`text-preview ${
+                        expandedJobId === job._id ? "expanded" : ""
+                      }`}
+                    >
+                      {job.description}
+                    </div>
+                    <button
+                      className="read-more"
+                      onClick={() => toggleDescription(job._id)}
+                    >
+                      {expandedJobId === job._id ? "Show Less" : "Read More"}
+                    </button>
+                  </div>
+                </td>
                 <td>
                   <button
                     onClick={() => approveJob(job._id)}

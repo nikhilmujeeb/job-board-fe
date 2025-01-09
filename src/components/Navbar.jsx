@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { useTheme } from "../context/ThemeContext";
 import "../styles/Navbar.css";
 
@@ -9,7 +9,8 @@ const Navbar = () => {
     !!localStorage.getItem("authToken")
   );
   const [isExpanded, setIsExpanded] = useState(false);
-  const navigate = useNavigate();
+
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   useEffect(() => {
     const authCheckInterval = setInterval(() => {
@@ -23,11 +24,14 @@ const Navbar = () => {
     localStorage.clear();
     setIsAuthenticated(false);
     alert("Logged out successfully.");
-    navigate("/login");
   };
 
   const toggleNavbar = () => {
     setIsExpanded((prev) => !prev);
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login"); // Navigate to the login page when the button is clicked
   };
 
   return (
@@ -54,7 +58,7 @@ const Navbar = () => {
               Logout
             </button>
           ) : (
-            <button to="/login" className="auth-button">
+            <button onClick={handleLoginClick} className="auth-button">
               Login
             </button>
           )}

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/createjob.css";
 
-const CreateJobListing = () => {
-  const [formData, setFormData] = useState({
+const EditJobPage = () => {
+  const { jobId } = useParams();
+  const navigate = useNavigate();
+  const [job, setJob] = useState({
     title: "",
     description: "",
     salaryRange: "",
@@ -15,14 +18,41 @@ const CreateJobListing = () => {
     contact: "",
     requirements: "",
   });
-
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          alert("Please log in.");
+          navigate("/login");
+          return;
+        }
+
+        const response = await axios.get(
+          `https://job-board-be-vk4x.onrender.com/api/job/${jobId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setJob(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching job:", error);
+        setLoading(false);
+        setErrorMessage("Failed to load job details.");
+      }
+    };
+
+    fetchJob();
+  }, [jobId, navigate]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setJob((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -35,42 +65,33 @@ const CreateJobListing = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.post(
-        "https://job-board-be-vk4x.onrender.com/api/job/request",
-        formData,
+      const token = localStorage.getItem("authToken");
+      await axios.put(
+        `https://job-board-be-vk4x.onrender.com/api/job/${jobId}`,
+        job,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      setSuccessMessage("Job listing created successfully!");
-      setFormData({
-        title: "",
-        description: "",
-        salaryRange: "",
-        location: "",
-        category: "",
-        jobType: "",
-        experience: "",
-        company: "",
-        contact: "",
-        requirements: "",
-      });
+      setSuccessMessage("Job listing updated successfully!");
     } catch (error) {
       setErrorMessage(
-        error.response?.data?.message || "An error occurred while creating the job listing."
+        error.response?.data?.message || "An error occurred while updating the job listing."
       );
     } finally {
       setLoading(false);
     }
   };
 
+  if (loading) return <p>Loading job...</p>;
+
   return (
     <div className="job-listing-page">
       <div className="job-listing-header">
-        <h1>Create a Job Listing</h1>
-        <p>Fill out the form below to create a new job listing.</p>
+        <h1>Edit Job Listing</h1>
+        <p>Update the job listing details below.</p>
       </div>
 
       {successMessage && <p className="success-message">{successMessage}</p>}
@@ -84,7 +105,7 @@ const CreateJobListing = () => {
             id="title"
             name="title"
             placeholder="Enter the job title"
-            value={formData.title}
+            value={job.title}
             onChange={handleChange}
             required
           />
@@ -97,7 +118,7 @@ const CreateJobListing = () => {
             name="description"
             rows="5"
             placeholder="Describe the job role and responsibilities"
-            value={formData.description}
+            value={job.description}
             onChange={handleChange}
             required
           ></textarea>
@@ -110,7 +131,7 @@ const CreateJobListing = () => {
             id="salaryRange"
             name="salaryRange"
             placeholder="e.g., $50,000 - $70,000"
-            value={formData.salaryRange}
+            value={job.salaryRange}
             onChange={handleChange}
             required
           />
@@ -123,7 +144,7 @@ const CreateJobListing = () => {
             id="location"
             name="location"
             placeholder="Enter the job location"
-            value={formData.location}
+            value={job.location}
             onChange={handleChange}
             required
           />
@@ -134,7 +155,7 @@ const CreateJobListing = () => {
           <select
             id="category"
             name="category"
-            value={formData.category}
+            value={job.category}
             onChange={handleChange}
             required
           >
@@ -157,7 +178,7 @@ const CreateJobListing = () => {
           <select
             id="jobType"
             name="jobType"
-            value={formData.jobType}
+            value={job.jobType}
             onChange={handleChange}
             required
           >
@@ -175,7 +196,7 @@ const CreateJobListing = () => {
           <select
             id="experience"
             name="experience"
-            value={formData.experience}
+            value={job.experience}
             onChange={handleChange}
             required
           >
@@ -193,7 +214,7 @@ const CreateJobListing = () => {
             id="company"
             name="company"
             placeholder="Enter your company name"
-            value={formData.company}
+            value={job.company}
             onChange={handleChange}
             required
           />
@@ -206,7 +227,7 @@ const CreateJobListing = () => {
             id="contact"
             name="contact"
             placeholder="Enter a contact email"
-            value={formData.contact}
+            value={job.contact}
             onChange={handleChange}
             required
           />
@@ -219,17 +240,17 @@ const CreateJobListing = () => {
             name="requirements"
             rows="5"
             placeholder="List the job requirements"
-            value={formData.requirements}
+            value={job.requirements}
             onChange={handleChange}
           ></textarea>
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create Listing"}
+          {loading ? "Updating..." : "Update Listing"}
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateJobListing;
+export default EditJobPage;

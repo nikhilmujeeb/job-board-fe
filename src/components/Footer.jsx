@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => (
 <footer>
-  <div class="footer-sections">
-    <div class="footer-column">
+  <div className="footer-sections">
+    <div className="footer-column">
       <h4>Useful Links</h4>
       <ul>
         <li><a href="/about-us">About Us</a></li>
@@ -11,7 +11,7 @@ const Footer = () => (
         <li><a href="/help-center">Help Center</a></li>
       </ul>
     </div>
-    <div class="footer-column">
+    <div className="footer-column">
       <h4>Resources</h4>
       <ul>
         <li><a href="/terms-and-privacy">Terms of Service & Privacy Policy</a></li>
@@ -19,7 +19,7 @@ const Footer = () => (
         <li><a href="#">Site Map</a></li>
       </ul>
     </div>
-    <div class="footer-column">
+    <div className="footer-column">
       <h4>Follow Us</h4>
       <ul>
         <li><a href="https://facebook.com">Facebook Page</a></li>
@@ -27,7 +27,7 @@ const Footer = () => (
         <li><a href="https://instagram.com">Instagram</a></li>
       </ul>
     </div>
-    <div class="footer-column">
+    <div className="footer-column">
       <h4>Get in Touch</h4>
       <ul>
         <li><a href="mailto:support@example.com">Email Us</a></li>
@@ -36,8 +36,8 @@ const Footer = () => (
       </ul>
     </div>
   </div>
-  <div class="footer-bottom">
-    <div class="logo">JOB SEEKER</div>
+  <div className="footer-bottom">
+    <div className="logo">JOB SEEKER</div>
     <p>© 2024 Job Seeker. All rights reserved.</p>
   </div>
 </footer>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
@@ -6,7 +6,6 @@ import '../styles/createprofile.css';
 
 const ProfileCreatePage = () => {
   const navigate = useNavigate();
-  
   const [profileData, setProfileData] = useState({
     firstName: '',
     middleName: '',
@@ -23,6 +22,40 @@ const ProfileCreatePage = () => {
     socialLinks: { linkedin: '', github: '', twitter: '' },
     resume: null,
   });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      const token = localStorage.getItem('authToken')?.trim();
+      const userId = localStorage.getItem('userId');
+  
+      if (!token || !userId) {
+        alert('You must be logged in to view or edit your profile.');
+        navigate('/login');
+        return;
+      }
+  
+      try {
+        const response = await axios.get(
+          `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setProfileData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        alert('Failed to load profile. Please try again.');
+        setLoading(false);
+      }
+    };
+  
+    fetchProfileData();
+  }, [navigate]);  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,11 +92,11 @@ const ProfileCreatePage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.size > 5 * 1024 * 1024) {
-      alert('File size exceeds 5 MB. Please upload a smaller file.');
+      alert(`File size exceeds 5 MB. The file size is ${Math.round(file.size / 1024 / 1024)} MB.`);
       return;
     }
     setProfileData((prevData) => ({ ...prevData, resume: file }));
-  };
+  };  
 
   const handleAddEducation = () => {
     setProfileData((prevData) => ({
@@ -155,19 +188,19 @@ const ProfileCreatePage = () => {
 
   const handleSkillsChange = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); 
-  
+      e.preventDefault();
+
       if (e.target.value.trim() !== '') {
         const newSkills = e.target.value.split(',').map((skill) => skill.trim());
-        
+
         setProfileData((prevData) => ({
           ...prevData,
-          skills: [...prevData.skills, ...newSkills], 
+          skills: [...prevData.skills, ...newSkills],
         }));
         e.target.value = '';
       }
     }
-  };  
+  };
 
   const validateFields = () => {
     const requiredFields = [
@@ -199,39 +232,83 @@ const ProfileCreatePage = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const error = validateFields();
-    if (error) {
-      alert(error);
-      return;
-    }
-
-    const token = localStorage.getItem('authToken')?.trim(); 
-    const payload = {
-      ...profileData, 
-    };
-
+  const handleProfileUpdate = async (event) => {
+    event.preventDefault();
+  
+    const formData = new FormData();
+    Object.entries(profileData).forEach(([key, value]) => {
+      if (key === 'resume' && value) {
+        formData.append(key, value); 
+      } else if (Array.isArray(value) || typeof value === 'object') {
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
+    });
+  
+    const token = localStorage.getItem('authToken')?.trim();
+    const userId = localStorage.getItem('userId');
+  
     try {
-      const response = await axios.post(
-        'https://job-board-be-vk4x.onrender.com/api/id/profile', 
-        payload,
+      const response = await axios.put(
+        `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
+        formData,
         {
           headers: {
-            'Content-Type': 'application/json', 
-            Authorization: `Bearer ${token}`, 
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-
-      console.log('Profile saved successfully:', response.data);
-      navigate('/'); 
+  
+      console.log('Profile updated successfully:', response.data);
+      navigate('/');
     } catch (error) {
-      console.error('Error saving profile:', error.response || error.message);
+      console.error('Error updating profile:', error.response || error.message);
       alert('Failed to update profile. Please try again.');
     }
-  };
+  };   
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const formData = new FormData();
+    Object.entries(profileData).forEach(([key, value]) => {
+      if (key === 'resume' && value) {
+        formData.append(key, value);
+      } else if (Array.isArray(value) || typeof value === 'object') {
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
+    });
+  
+    const token = localStorage.getItem('authToken')?.trim();
+    const userId = localStorage.getItem('userId');
+  
+    try {
+      const response = await axios.put(
+        `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log('Profile updated successfully:', response.data);
+      navigate('/');
+    } catch (error) {
+      console.error('Error updating profile:', error.response || error.message);
+      alert('Failed to update profile. Please try again.');
+    }
+  };  
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="profile-create-container">

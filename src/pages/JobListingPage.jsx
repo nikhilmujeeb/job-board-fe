@@ -8,11 +8,11 @@ const JobListingPage = () => {
   const [query, setQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState(''); 
+  const [categoryFilter, setCategoryFilter] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(null); 
-  const [isApplying, setIsApplying] = useState(false); 
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [isApplying, setIsApplying] = useState(false);
 
   useEffect(() => {
     axios
@@ -53,7 +53,7 @@ const JobListingPage = () => {
   };
 
   const handleApplyClick = async (job) => {
-    if (isApplying) return; 
+    if (isApplying) return;
     setIsApplying(true);
 
     const token = localStorage.getItem('authToken');
@@ -69,7 +69,6 @@ const JobListingPage = () => {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
       alert(response.data.message || 'Application submitted.');
     } catch (error) {
       console.error('Error applying for job:', error);
@@ -85,7 +84,7 @@ const JobListingPage = () => {
 
   const handleClosePopup = (e) => {
     if (e.target.className === 'popup') {
-      setSelectedJob(null); 
+      setSelectedJob(null);
     }
   };
 
@@ -95,7 +94,7 @@ const JobListingPage = () => {
         (!query || job.title?.toLowerCase().includes(query.toLowerCase())) &&
         (!location || job.location?.toLowerCase().includes(location.toLowerCase())) &&
         (!type || job.jobType?.toLowerCase() === type.toLowerCase()) &&
-        (!category || job.category?.toLowerCase() === category.toLowerCase()) 
+        (!category || job.category?.toLowerCase() === category.toLowerCase())
     );
     setFilteredJobs(filtered);
   };
@@ -127,18 +126,18 @@ const JobListingPage = () => {
           <option value="Part-time">Part-time</option>
         </select>
         <select onChange={handleCategoryChange} value={categoryFilter}>
-           <option value="">Select a category</option>
-            <option value="Software">Software</option>
-           <option value="Marketing">Marketing</option>
-           <option value="Design">Design</option>
-           <option value="Sales">Sales</option>
-           <option value="Technology">Technology</option>
-            <option value="Healthcare">Healthcare</option>
-            <option value="Education">Education</option>
-            <option value="Business">Business</option>
-            <option value="Engineering">Engineering</option>
-              <option value="Creative Arts">Creative Arts</option>
-          </select>
+          <option value="">Select a category</option>
+          <option value="Software">Software</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Design">Design</option>
+          <option value="Sales">Sales</option>
+          <option value="Technology">Technology</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Education">Education</option>
+          <option value="Business">Business</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Creative Arts">Creative Arts</option>
+        </select>
       </div>
 
       <div className="job-listings">
@@ -173,7 +172,8 @@ const JobListingPage = () => {
             <p><strong>Location:</strong> {selectedJob.location}</p>
             <p><strong>Salary Range:</strong> {selectedJob.salaryRange}</p>
             <p><strong>Job Type:</strong> {selectedJob.jobType}</p>
-            <p><strong>Category:</strong> {selectedJob.category}</p> 
+            <p><strong>Category:</strong> {selectedJob.category}</p>
+            <p><strong>Experience:</strong> {selectedJob.experience}</p>
             <p><strong>Description:</strong> {selectedJob.description}</p>
             <p><strong>Requirements:</strong> {selectedJob.requirements}</p>
             <p><strong>Contact Email:</strong> {selectedJob.contact}</p>

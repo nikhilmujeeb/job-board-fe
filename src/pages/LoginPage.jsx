@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; 
+import { useNavigate } from "react-router-dom"; 
 import { login, signup } from "../services/api";
 import "../styles/login.css";
 
@@ -13,13 +12,12 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-
+  
     try {
       let response;
       if (isLogin) {
@@ -30,45 +28,30 @@ const LoginPage = () => {
         setIsLogin(true);
         return;
       }
-
+  
       const token = response?.token;
-      if (!token) {
-        throw new Error("Token missing from response.");
+      const userRole = response?.role;
+      const userId = response?.user?._id;
+  
+      if (!token || !userRole || !userId) {
+        throw new Error("Token, role, or user ID missing from response.");
       }
-
-      const decoded = jwtDecode(token);
-      console.log("Decoded token:", decoded); 
+  
       localStorage.setItem("authToken", token);
-      localStorage.setItem("role", decoded.role);
-      localStorage.setItem("userId", decoded.userId);      
-
-      if (decoded.exp * 1000 < Date.now()) {
-        throw new Error("Session expired. Please login again.");
-      }
-
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("role", decoded.role);
-
-      console.log("Token stored in localStorage:", localStorage.getItem('authToken')); 
-
-      alert("Login successful!");
-
-      const redirectPath = location.state?.from || {
-        admin: "/admin",
-        employer: "/employer",
-        user: "/user-dashboard",
-      }[decoded.role] || "/";
-
-      console.log("Redirecting to:", redirectPath);
-
-      navigate(redirectPath, { replace: true });
+      localStorage.setItem("role", userRole);
+      localStorage.setItem("userId", userId);  
+  
+      alert(isLogin ? "Login successful!" : "Signup successful!");
+  
+      navigate("/");
+  
     } catch (err) {
       setError(err.message || "Login failed. Please check your credentials.");
       console.error("Error during login:", err);
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   return (
     <div className="auth-page">

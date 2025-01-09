@@ -13,16 +13,16 @@ const UserDashboard = () => {
 
   useEffect(() => {
     const fetchProfileAndJobs = async () => {
-      const token = localStorage.getItem('authToken'); 
-  
+      const token = localStorage.getItem("authToken");
+
       if (!token) {
-        navigate('/login'); 
+        console.warn("No token found. Redirecting to login.");
+        navigate("/login");
         return;
       }
   
       const decoded = jwtDecode(token);
-      const userId = decoded.userId; 
-      console.log("Decoded user ID:", userId); 
+      const userId = decoded.userId;
   
       if (!userId) {
         console.error("User ID is missing from the token.");
@@ -34,18 +34,15 @@ const UserDashboard = () => {
       try {
         const profileResponse = await axios.get(
           `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
-          { headers: { Authorization: `Bearer ${token}` } } 
+          { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log("Profile data fetched:", profileResponse); 
-        setProfile(profileResponse.data);  
+        setProfile(profileResponse.data);
   
         const jobsResponse = await axios.get(
           'https://job-board-be-vk4x.onrender.com/api/user/getJobsApplied',
-          { headers: { Authorization: `Bearer ${token}` } } 
+          { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log("Applied Jobs:", jobsResponse.data.jobs); 
         setAppliedJobs(jobsResponse.data.jobs);
-  
       } catch (err) {
         console.error("Error fetching data:", err.response || err.message);
         setError('Failed to load profile or jobs. Please try again later.');
@@ -55,7 +52,7 @@ const UserDashboard = () => {
     };
   
     fetchProfileAndJobs();
-  }, [navigate]);  
+  }, [navigate]);   
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;

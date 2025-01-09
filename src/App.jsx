@@ -21,6 +21,8 @@ import Support from './pages/Support';
 import TermsAndPrivacy from './pages/TermsOfService';
 import EmployerDashboard from "./pages/EmployerDashboard";
 import UserDashboard from './pages/UserDashboard'; 
+import ProfilePage from "./pages/ProfilePage";
+import EditJobPage from "./pages/EditJobPage.jsx";
 
 const App = () => (
   <ThemeProvider>
@@ -33,7 +35,6 @@ const App = () => (
           <Route path="/about-us" element={<AboutUs />} />
           <Route path='/careers' element={<Careers />} />
           <Route path="/create-job" element={<CreateJobListing />} />
-          <Route path='/admin' element={<AdminDashboard />} />
           <Route path='/help-center' element={<HelpCenter />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/success-stories" element={<SuccessStories />} />
@@ -41,16 +42,12 @@ const App = () => (
           <Route path="/social-media" element={<SocialMedia />} />
           <Route path="/support" element={<Support />} />
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/employer" element={<EmployerDashboard />} />
-          <Route path="/user-dashboard" element={<UserDashboard />} /> 
-          <Route
-            path="/dashboard/*"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/edit-job/:jobId" element={<EditJobPage />} />
+          <Route path="/dashboard/*" element={<ProtectedRoute element={<Dashboard />} />} />
         </Routes>
       </MainLayout>
   </ThemeProvider>
