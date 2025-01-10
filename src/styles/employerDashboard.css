@@ -227,3 +227,10 @@ a:hover {
 .modal-content .close-btn:hover {
   color: var(--button-hover-bg-color);
 }
+
+.job-actions {
+  display: flex;
+  gap: 10px; 
+  flex-wrap: wrap; 
+  justify-content: flex-start; 
+}
