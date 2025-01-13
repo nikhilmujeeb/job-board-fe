@@ -23,6 +23,11 @@ const ProfileCreatePage = () => {
     resume: null,
   });
 
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return d.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+  };
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -42,30 +47,39 @@ const ProfileCreatePage = () => {
           {
             headers: {
               Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
             },
           }
         );
-        setProfileData(response.data);
-        setLoading(false);
+  
+        if (response.data) {
+          setProfileData(response.data);
+        }
       } catch (error) {
-        console.error('Error fetching profile:', error);
-        alert('Failed to load profile. Please try again.');
+        if (error.response && error.response.status === 404) {
+          console.log('No profile found for this user. Proceeding with profile creation.');
+          navigate('/create-profile');
+        } else {
+          console.error('Error fetching profile:', error);
+          alert('Failed to load profile. Please try again.');
+        }
+      } finally {
         setLoading(false);
       }
     };
   
     fetchProfileData();
-  }, [navigate]);  
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     const parts = name.split('.');
-
+  
     if (parts.length === 3) {
       const field = parts[0];
       const index = parseInt(parts[1], 10);
       const subField = parts[2];
-
+  
       if (field === 'education') {
         const updatedEducation = [...profileData.education];
         updatedEducation[index] = { ...updatedEducation[index], [subField]: value };
@@ -87,6 +101,14 @@ const ProfileCreatePage = () => {
         [name]: value,
       }));
     }
+  };  
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleFileChange = (e) => {
@@ -96,7 +118,7 @@ const ProfileCreatePage = () => {
       return;
     }
     setProfileData((prevData) => ({ ...prevData, resume: file }));
-  };  
+  };
 
   const handleAddEducation = () => {
     setProfileData((prevData) => ({
@@ -123,6 +145,12 @@ const ProfileCreatePage = () => {
     updatedExperience.splice(index, 1);
     setProfileData({ ...profileData, experience: updatedExperience });
   };
+  
+  const handleRemoveSkill = (index) => {
+    const updatedSkills = [...profileData.skills];
+    updatedSkills.splice(index, 1);
+    setProfileData({ ...profileData, skills: updatedSkills });
+  };  
 
   const handleCountryCodeChange = (selectedOption) => {
     setProfileData({ ...profileData, countryCode: selectedOption.value });
@@ -189,122 +217,79 @@ const ProfileCreatePage = () => {
   const handleSkillsChange = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-
-      if (e.target.value.trim() !== '') {
-        const newSkills = e.target.value.split(',').map((skill) => skill.trim());
-
+      const newSkill = e.target.value.trim();
+      if (newSkill && !profileData.skills.includes(newSkill)) {
         setProfileData((prevData) => ({
           ...prevData,
-          skills: [...prevData.skills, ...newSkills],
+          skills: [...prevData.skills, newSkill],
         }));
-        e.target.value = '';
       }
+      e.target.value = '';
     }
   };
-
-  const validateFields = () => {
-    const requiredFields = [
-      'firstName',
-      'lastName',
-      'dateOfBirth',
-      'address',
-      'email',
-      'phone',
-      'bio',
-      'skills',
-      'education',
-      'experience',
-      'socialLinks',
-    ];
-
-    for (let field of requiredFields) {
-      if (!profileData[field] || (Array.isArray(profileData[field]) && profileData[field].length === 0)) {
-        return `Field "${field}" is required.`;
-      }
-    }
-    return null;
-  };
-
-  const handleRemoveSkill = (skillToRemove) => {
-    setProfileData((prevData) => ({
-      ...prevData,
-      skills: prevData.skills.filter((skill) => skill !== skillToRemove),
-    }));
-  };
-
-  const handleProfileUpdate = async (event) => {
-    event.preventDefault();
-  
-    const formData = new FormData();
-    Object.entries(profileData).forEach(([key, value]) => {
-      if (key === 'resume' && value) {
-        formData.append(key, value); 
-      } else if (Array.isArray(value) || typeof value === 'object') {
-        formData.append(key, JSON.stringify(value));
-      } else {
-        formData.append(key, value);
-      }
-    });
-  
-    const token = localStorage.getItem('authToken')?.trim();
-    const userId = localStorage.getItem('userId');
-  
-    try {
-      const response = await axios.put(
-        `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-  
-      console.log('Profile updated successfully:', response.data);
-      navigate('/');
-    } catch (error) {
-      console.error('Error updating profile:', error.response || error.message);
-      alert('Failed to update profile. Please try again.');
-    }
-  };   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const formData = new FormData();
-    Object.entries(profileData).forEach(([key, value]) => {
-      if (key === 'resume' && value) {
-        formData.append(key, value);
-      } else if (Array.isArray(value) || typeof value === 'object') {
-        formData.append(key, JSON.stringify(value));
-      } else {
-        formData.append(key, value);
-      }
-    });
-  
     const token = localStorage.getItem('authToken')?.trim();
     const userId = localStorage.getItem('userId');
   
-    try {
-      const response = await axios.put(
-        `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-  
-      console.log('Profile updated successfully:', response.data);
-      navigate('/');
-    } catch (error) {
-      console.error('Error updating profile:', error.response || error.message);
-      alert('Failed to update profile. Please try again.');
+    if (!token || !userId) {
+      alert('You must be logged in to create or update your profile.');
+      navigate('/login');
+      return;
     }
-  };  
+  
+    // Ensure socialLinks is an object
+    let socialLinksObject = profileData.socialLinks;
+    if (typeof socialLinksObject === 'string') {
+      try {
+        // Parse the string if it's a stringified object
+        socialLinksObject = JSON.parse(socialLinksObject);
+      } catch (error) {
+        console.error('Invalid socialLinks format:', error);
+        alert('Invalid socialLinks format. Please check your input.');
+        return;
+      }
+    }
+  
+    const formData = new FormData();
+    formData.append('firstName', profileData.firstName);
+    formData.append('middleName', profileData.middleName);
+    formData.append('lastName', profileData.lastName);
+    formData.append('dateOfBirth', profileData.dateOfBirth);
+    formData.append('address', profileData.address);
+    formData.append('email', profileData.email);
+    formData.append('phone', profileData.phone);
+    formData.append('bio', profileData.bio);
+    formData.append('skills', profileData.skills);
+    formData.append('education', JSON.stringify(profileData.education));
+    formData.append('experience', JSON.stringify(profileData.experience));
+    formData.append('socialLinks', JSON.stringify(socialLinksObject));
+  
+    if (profileData.resume) {
+      formData.append('resume', profileData.resume);
+    }
+  
+    try {
+      const response = await axios({
+        method: profileData._id ? 'PUT' : 'POST', // If profile exists, use PUT, else POST
+        url: `https://job-board-be-vk4x.onrender.com/api/id/profile${profileData._id ? `/${profileData._id}` : ''}`,
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.data) {
+        alert(profileData._id ? 'Profile updated successfully!' : 'Profile created successfully!');
+        navigate(`/dashboard`);
+      }
+    } catch (error) {
+      console.error('Error handling profile submission:', error);
+      alert('Failed to create or update profile. Please try again.');
+    }
+  };     
 
   if (loading) {
     return <div>Loading...</div>;
@@ -312,164 +297,175 @@ const ProfileCreatePage = () => {
 
   return (
     <div className="profile-create-container">
-      <h1>Create or Update Profile</h1>
+      <h2>Create or Edit Profile</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label>First Name</label>
           <input
             type="text"
             name="firstName"
             value={profileData.firstName}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Middle Name</label>
           <input
             type="text"
             name="middleName"
             value={profileData.middleName}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Last Name</label>
           <input
             type="text"
             name="lastName"
             value={profileData.lastName}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Date of Birth</label>
           <input
             type="date"
             name="dateOfBirth"
             value={profileData.dateOfBirth}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Address</label>
           <input
             type="text"
             name="address"
             value={profileData.address}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email</label>
           <input
             type="email"
             name="email"
             value={profileData.email}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Phone</label>
-          <div className="phone-input">
+          <div className="phone-container">
             <Select
               options={countryCodeOptions}
-              value={countryCodeOptions.find(
-                (option) => option.value === profileData.countryCode
-              )}
+              value={{ value: profileData.countryCode, label: profileData.countryCode }}
               onChange={handleCountryCodeChange}
             />
             <input
               type="text"
               name="phone"
               value={profileData.phone}
-              onChange={handleChange}
+              onChange={handleInputChange}
+              required
             />
           </div>
         </div>
-        <div>
+        <div className="form-group">
           <label>Bio</label>
           <textarea
             name="bio"
             value={profileData.bio}
-            onChange={handleChange}
-          />
+            onChange={handleInputChange}
+            required
+          ></textarea>
         </div>
-        <div>
+        <div className="form-group">
           <label>Skills</label>
           <input
             type="text"
-            onKeyPress={handleSkillsChange} 
-            placeholder="Press Enter to add skill"
-           />
+            onKeyDown={handleSkillsChange}
+            placeholder="Press Enter to add a skill"
+          />
           <div className="skills-list">
-            {profileData.skills.length > 0 && (
-              <ul>
-                {profileData.skills.map((skill, index) => (
-                  <li key={index}>
-                    {skill}
-                    <button type="button" onClick={() => handleRemoveSkill(skill)}>Remove</button>
-                  </li>
-                ))}
-              </ul>
-            )}
+            {profileData.skills.map((skill, index) => (
+              <div key={index} className="skill">
+                <span>{skill}</span>
+                <button type="button" onClick={() => handleRemoveSkill(index)}>
+                  Delete
+                </button>
+              </div>
+            ))}
           </div>
         </div>
-        <div>
-          <label>Education</label>
-          {profileData.education.map((edu, index) => (
-            <div key={index}>
-              <input
-                type="text"
-                name={`education.${index}.school`}
-                value={edu.school}
-                onChange={handleChange}
-                placeholder="School"
-              />
-              <input
-                type="text"
-                name={`education.${index}.degree`}
-                value={edu.degree}
-                onChange={handleChange}
-                placeholder="Degree"
-              />
-              <input
-                type="text"
-                name={`education.${index}.fieldOfStudy`}
-                value={edu.fieldOfStudy}
-                onChange={handleChange}
-                placeholder="Field of Study"
-              />
-              <input
-                type="date"
-                name={`education.${index}.startDate`}
-                value={edu.startDate}
-                onChange={handleChange}
-              />
-              <input
-                type="date"
-                name={`education.${index}.endDate`}
-                value={edu.endDate}
-                onChange={handleChange}
-              />
-              <button type="button" onClick={() => handleRemoveEducation(index)}>
-                Remove Education
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={handleAddEducation}>
-            Add Education
-          </button>
-        </div>
-        <div>
+        <div className="form-group">
+            <label>Education</label>
+            {profileData.education.map((edu, index) => (
+              <div key={index} className="education-entry">
+                <input
+                  type="text"
+                  name={`education.${index}.school`}
+                  value={edu.school}
+                  onChange={handleChange}
+                  placeholder="School"
+                  required
+                />
+                <input
+                  type="text"
+                  name={`education.${index}.degree`}
+                  value={edu.degree}
+                  onChange={handleChange}
+                  placeholder="Degree"
+                  required
+                />
+                <input
+                  type="text"
+                  name={`education.${index}.fieldOfStudy`}
+                  value={edu.fieldOfStudy}
+                  onChange={handleChange}
+                  placeholder="Field of Study"
+                  required
+                />
+                <input
+                  type="date"
+                  name={`education.${index}.startDate`}
+                  value={formatDate(edu.startDate)}  // Use formatDate here
+                  onChange={handleChange}
+                  placeholder="Start Date"
+                  required
+                />
+                <input
+                  type="date"
+                  name={`education.${index}.endDate`}
+                  value={formatDate(edu.endDate)}  // Use formatDate here
+                  onChange={handleChange}
+                  placeholder="End Date"
+                  required
+                />
+                <button type="button" onClick={() => handleRemoveEducation(index)}>
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button type="button" onClick={handleAddEducation}>
+              Add Education
+            </button>
+          </div>
+        <div className="form-group">
           <label>Experience</label>
           {profileData.experience.map((exp, index) => (
-            <div key={index}>
+            <div key={index} className="experience-entry">
               <input
                 type="text"
                 name={`experience.${index}.company`}
                 value={exp.company}
                 onChange={handleChange}
                 placeholder="Company"
+                required
               />
               <input
                 type="text"
@@ -477,27 +473,33 @@ const ProfileCreatePage = () => {
                 value={exp.jobTitle}
                 onChange={handleChange}
                 placeholder="Job Title"
+                required
               />
               <input
                 type="date"
                 name={`experience.${index}.startDate`}
                 value={exp.startDate}
                 onChange={handleChange}
+                placeholder="Start Date"
+                required
               />
               <input
                 type="date"
                 name={`experience.${index}.endDate`}
                 value={exp.endDate}
                 onChange={handleChange}
+                placeholder="End Date"
+                required
               />
               <textarea
                 name={`experience.${index}.description`}
                 value={exp.description}
                 onChange={handleChange}
                 placeholder="Job Description"
-              />
+                required
+              ></textarea>
               <button type="button" onClick={() => handleRemoveExperience(index)}>
-                Remove Experience
+                Remove
               </button>
             </div>
           ))}
@@ -505,7 +507,7 @@ const ProfileCreatePage = () => {
             Add Experience
           </button>
         </div>
-        <div>
+        <div className="form-group">
           <label>Social Links</label>
           <input
             type="url"
@@ -529,16 +531,17 @@ const ProfileCreatePage = () => {
             placeholder="Twitter"
           />
         </div>
-        <div>
-          <label>Resume</label>
+        <div className="form-group">
+          <label>Upload Resume</label>
           <input
             type="file"
-            name="resume"
             accept=".pdf,.doc,.docx"
             onChange={handleFileChange}
           />
         </div>
-        <button type="submit">Save Profile</button>
+        <div className="form-group">
+          <button type="submit">Save Profile</button>
+        </div>
       </form>
     </div>
   );

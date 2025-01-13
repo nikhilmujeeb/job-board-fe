@@ -14,7 +14,11 @@ const ProfilePage = () => {
         const response = await axios.get(
           `https://job-board-be-vk4x.onrender.com/api/id/profile/${id}`
         );
-        setProfile(response.data);
+        if (response.data) {
+          setProfile(response.data);
+        } else {
+          setProfile(null); // No profile found
+        }
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Error fetching profile.");
@@ -29,7 +33,7 @@ const ProfilePage = () => {
   }
 
   if (!profile) {
-    return <div className="profile-container">Loading...</div>;
+    return <div className="profile-container">No profile available.</div>;
   }
 
   return (

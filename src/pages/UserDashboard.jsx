@@ -1,64 +1,101 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
-import '../styles/user-dashboard.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode"; // Correct named import
 
 const UserDashboard = () => {
-  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfileAndJobs = async () => {
-      const token = localStorage.getItem("authToken");
-
-      if (!token) {
-        console.warn("No token found. Redirecting to login.");
-        navigate("/login");
-        return;
-      }
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem("authToken");
   
+    if (!token) {
+      console.warn("No token found. Redirecting to login.");
+      navigate("/login");
+      return;
+    }
+  
+    try {
+      // Decode the token to get the userId
       const decoded = jwtDecode(token);
       const userId = decoded.userId;
+      console.log("Decoded User ID:", userId);
   
-      if (!userId) {
-        console.error("User ID is missing from the token.");
-        setError("Unable to fetch profile. Please login again.");
-        setLoading(false);
-        return;
-      }
+      // Fetch the profile data using the userId
+      const fetchProfile = async () => {
+        try {
+          const profileResponse = await axios.get(
+            `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (profileResponse.data) {
+            setProfile(profileResponse.data);
+          } else {
+            setProfile(null); // No profile found
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 404) {
+            // Profile not found
+            setProfile(null);
+          } else {
+            setError("Failed to fetch data. Please try again later.");
+            console.error("Error fetching profile:", error);
+          }
+        }
+      };
   
-      try {
-        const profileResponse = await axios.get(
-          `https://job-board-be-vk4x.onrender.com/api/id/profile/${userId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        setProfile(profileResponse.data);
+      // Fetch the applied jobs
+      const fetchAppliedJobs = async () => {
+        try {
+          const jobsResponse = await axios.get(
+            `https://job-board-be-vk4x.onrender.com/api/user/getJobsApplied`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setAppliedJobs(jobsResponse.data.jobs);
+        } catch (error) {
+          setError("Failed to fetch applied jobs.");
+          console.error("Error fetching applied jobs:", error);
+        }
+      };
   
-        const jobsResponse = await axios.get(
-          'https://job-board-be-vk4x.onrender.com/api/user/getJobsApplied',
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        setAppliedJobs(jobsResponse.data.jobs);
-      } catch (err) {
-        console.error("Error fetching data:", err.response || err.message);
-        setError('Failed to load profile or jobs. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
+      fetchProfile();
+      fetchAppliedJobs();
+      setLoading(false); // Set loading to false once data is fetched
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      setError("Invalid token.");
+      setLoading(false); // Set loading to false even if token decoding fails
+    }
+  }, [navigate]);
   
-    fetchProfileAndJobs();
-  }, [navigate]);   
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
-
+  
   if (!profile) {
     return <div>No profile data available.</div>;
+  }  
+
+  if (!profile) {
+    return (
+      <div className="user-dashboard">
+        <h1>User Dashboard</h1>
+        <p>Profile is not created yet. Please complete your profile.</p>
+        <button onClick={() => navigate("/create-profile")}>Create Profile</button>
+      </div>
+    );
   }
 
   return (
@@ -67,12 +104,24 @@ const UserDashboard = () => {
 
       <section className="profile-info">
         <h2>Profile Information</h2>
-        <div><strong>Name: </strong>{profile.firstName} {profile.middleName} {profile.lastName}</div>
-        <div><strong>Email: </strong>{profile.email}</div>
-        <div><strong>Phone: </strong>{profile.countryCode} {profile.phone}</div>
-        <div><strong>Bio: </strong>{profile.bio}</div>
-        
-        <div><strong>Skills: </strong>
+        <div>
+          <strong>Name: </strong>
+          {profile.firstName} {profile.middleName} {profile.lastName}
+        </div>
+        <div>
+          <strong>Email: </strong>
+          {profile.email}
+        </div>
+        <div>
+          <strong>Phone: </strong>
+          {profile.countryCode} {profile.phone}
+        </div>
+        <div>
+          <strong>Bio: </strong>
+          {profile.bio}
+        </div>
+        <div>
+          <strong>Skills: </strong>
           <ul>
             {profile.skills && profile.skills.length > 0 ? (
               profile.skills.map((skill, index) => <li key={index}>{skill}</li>)
@@ -81,9 +130,14 @@ const UserDashboard = () => {
             )}
           </ul>
         </div>
-        
-        <div><strong>Address: </strong>{profile.address}</div>
-        <div><strong>Date of Birth: </strong>{new Date(profile.dateOfBirth).toLocaleDateString()}</div>
+        <div>
+          <strong>Address: </strong>
+          {profile.address}
+        </div>
+        <div>
+          <strong>Date of Birth: </strong>
+          {new Date(profile.dateOfBirth).toLocaleDateString()}
+        </div>
 
         <h3>Education</h3>
         <ul>
@@ -103,7 +157,7 @@ const UserDashboard = () => {
           {profile.experience && profile.experience.length > 0 ? (
             profile.experience.map((exp, index) => (
               <li key={index}>
-                <strong>{exp.jobTitle}</strong> at {exp.company} ({new Date(exp.startDate).toLocaleDateString()} - {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'})
+                <strong>{exp.jobTitle}</strong> at {exp.company} ({new Date(exp.startDate).toLocaleDateString()} - {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : "Present"})
                 <p>{exp.description}</p>
               </li>
             ))
@@ -129,17 +183,17 @@ const UserDashboard = () => {
       <section className="applied-jobs">
         <h2>Jobs You Have Applied To</h2>
         {appliedJobs.length > 0 ? (
-  <ul>
-    {appliedJobs.map((job, index) => (
-      <li key={index}>
-        <strong>{job.title}</strong> at {job.company} <br />
-        <span>{job.location}</span>
-      </li>
-    ))}
-  </ul>
-) : (
-  <p>You have not applied to any jobs yet.</p>
-)}
+          <ul>
+            {appliedJobs.map((job, index) => (
+              <li key={index}>
+                <strong>{job.title}</strong> at {job.company} <br />
+                <span>{job.location}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>You have not applied to any jobs yet.</p>
+        )}
       </section>
     </div>
   );
